@@ -2,15 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\File as StorageFile;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Kalnoy\Nestedset\NodeTrait;
 
 class File extends Model
 {
-    use NodeTrait;
-
     /**
      * The attributes that are mass assignable.
      *
