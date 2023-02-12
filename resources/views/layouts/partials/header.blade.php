@@ -41,6 +41,9 @@
                         <li><a href="">Materiały wideo</a></li>
                         <li><a href=""><b>Rozwiąż test</b></a></li>
                         <li><a href="">Zmień hasło</a></li>
+                        @can('admin-panel')
+                        <li><a href="/admin" class="text-danger">Administrator</a></li>
+                        @endcan
                         <li>
                             <a title="Wyloguj" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Wyloguj się</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
