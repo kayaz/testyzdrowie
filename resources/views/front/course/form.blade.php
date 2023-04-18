@@ -1,11 +1,11 @@
 @extends('layouts.page')
 
-@section('meta_title', 'O nas')
+@section('meta_title', 'Nowe konto')
 @section('seo_title', '')
 @section('seo_description', '')
 
 @section('pageheader')
-    @include('layouts.partials.page-header', ['page' => '', 'header_file' => 'contact.jpg'])
+    @include('layouts.partials.page-header', ['title' => 'Nowe konto', 'header_file' => 'pageheader.jpg'])
 @stop
 
 @section('content')
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-12">
                     <h2 class="section-heading">
-                        <span class="section-text">Kurs dla lekarzy rzeszowskiej OIL - Zdrowie publiczne </span>
+                        <span class="section-text">Utwórz nowe konto </span>
                         <span class="section-dot"></span>
                         <span class="section-line"></span>
                     </h2>

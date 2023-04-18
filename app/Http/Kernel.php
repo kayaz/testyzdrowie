@@ -79,5 +79,6 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         'restrictIp' => \App\Http\Middleware\IpMiddleware::class,
         'file_owner' => \App\Http\Middleware\CheckForFileOwner::class,
+        'exam.date.registration' => \App\Http\Middleware\CheckExamDateRegistration::class,
     ];
 }

@@ -33,9 +33,9 @@ class ExamFormRequest extends FormRequest
             'attempts' => 'required|integer',
             'question' => 'required|integer',
             'pass' => 'required|integer',
-            'date_start' => 'required|date_format:Y-m-d|before_or_equal:date_end',
-            'date_end' => 'required|date_format:Y-m-d|after_or_equal:date_start',
-            'exam_dates' => 'required|string'
+            //'date_start' => 'required|date_format:Y-m-d|before_or_equal:date_end',
+            //'date_end' => 'required|date_format:Y-m-d|after_or_equal:date_start',
+            //'exam_dates' => 'required|string'
         ];
     }
 
@@ -58,11 +58,11 @@ class ExamFormRequest extends FormRequest
             'questions.integer' => 'Tylko liczby',
             'pass.required' => 'To pole jest wymagane',
             'pass.integer' => 'Tylko liczby',
-            'date_start.required' => 'To pole jest wymagane',
-            'date_start.before_or_equal' => 'Pole musi być datą nie późniejszą niż zakończenie.',
-            'date_end.required' => 'To pole jest wymagane',
-            'date_end.after_or_equal' => 'Pole musi być datą nie wcześniejszą niż rozpoczęcie.',
-            'exam_dates.required' => 'To pole jest wymagane',
+            //'date_start.required' => 'To pole jest wymagane',
+            //'date_start.before_or_equal' => 'Pole musi być datą nie późniejszą niż zakończenie.',
+            //'date_end.required' => 'To pole jest wymagane',
+            //'date_end.after_or_equal' => 'Pole musi być datą nie wcześniejszą niż rozpoczęcie.',
+            //'exam_dates.required' => 'To pole jest wymagane',
         ];
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Article;
+use App\Models\ExamDate;
+use App\Models\ExamDateUser;
 use App\Models\File;
 use App\Models\Gallery;
 use App\Models\Image;
@@ -27,6 +29,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Activitylog\Models\Activity;
 use Request;
@@ -72,6 +75,20 @@ class AppServiceProvider extends ServiceProvider
                 "referer"       => Request::header('referer'),
                 "methodType"    => Request::method()
             ]);
+        });
+
+        View::composer('*', function ($view) {
+            if (Auth::check()) {
+                $user = Auth::user();
+                $examDateUsers = $user->examDateUsers()
+                    ->whereHas('exam', function ($query) {
+                        $query->where('active', '=', 1);
+                    })
+                    ->with('exam', 'examDate')
+                    ->orderBy('id', 'asc')
+                    ->get();
+                $view->with('examDateUsers', $examDateUsers);
+            }
         });
 
         Image::observe(ImageObserver::class);

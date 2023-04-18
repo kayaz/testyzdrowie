@@ -13,7 +13,7 @@
                         <div class="card-head container">
                             <div class="row">
                                 <div class="col-12 pl-0">
-                                    <h4 class="page-title row"><i class="fe-home"></i><a href="{{route('admin.exam.index')}}" class="p-0">Egzaminy</a><span class="d-inline-flex ml-2 mr-2">/</span>{{ $cardTitle }}</h4>
+                                    <h4 class="page-title"><i class="fe-home"></i><a href="{{route('admin.exam.index')}}" class="p-0">Egzaminy</a><span class="d-inline-flex me-2 ms-2">/</span>{{ $cardTitle }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -29,11 +29,10 @@
                                         @include('form-elements.html-select', ['label' => 'Ilość prób', 'name' => 'attempts', 'selected' => $entry->attempts, 'select' => ['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6']])
                                         @include('form-elements.html-input-text', ['label' => 'Ilość losowych pytań', 'sublabel' => 'Tylko cyfry', 'name' => 'question', 'value' => $entry->question, 'required' => 1])
                                         @include('form-elements.html-input-text', ['label' => 'Ilość punktów na zaliczenie', 'sublabel' => 'Tylko cyfry', 'name' => 'pass', 'value' => $entry->pass, 'required' => 1])
-                                        @include('form-elements.html-input-text', ['label' => 'Terminy kursów', 'sublabel' => 'Terminy oddzielone średnikiem', 'name' => 'exam_dates', 'value' => $entry->exam_dates, 'required' => 1])
-
+                                        <!--
                                         @include('form-elements.html-input-text', ['label' => 'Terminy rozpoczęcia', 'name' => 'date_start', 'value' => $entry->date_start, 'required' => 1])
                                         @include('form-elements.html-input-date', ['label' => 'Terminy zakończenia', 'name' => 'date_end', 'value' => $entry->date_end, 'required' => 1])
-
+                                        -->
 
                                         @include('form-elements.textarea-fullwidth', [
                                             'label' => 'Informacja dla kursantów',

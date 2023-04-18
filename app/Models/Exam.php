@@ -22,9 +22,9 @@ class Exam extends Model
         'attempts',
         'question',
         'pass',
-        'date_start',
-        'date_end',
-        'exam_dates',
+        //'date_start',
+        //'date_end',
+        //'exam_dates',
         'active',
     ];
 
@@ -34,5 +34,25 @@ class Exam extends Model
     public function questions()
     {
         return $this->hasMany('App\Models\Question');
+    }
+
+    /**
+     * Get exam dates
+     */
+    public function dates()
+    {
+        return $this->hasMany('App\Models\ExamDate');
+    }
+
+    public function examDateUsers()
+    {
+        return $this->hasManyThrough(
+            ExamDateUser::class,
+            ExamDate::class,
+            'exam_id', // foreign key on ExamDate table
+            'exam_date_id', // foreign key on ExamDateUser table
+            'id', // local key on Exam table
+            'id' // local key on ExamDate table
+        );
     }
 }

@@ -73,6 +73,12 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span> Pliki</a>
                         </li>
+                        <li {{ Request::routeIs('admin.calendar.*') ? 'class=active' : '' }}>
+                            <a href="{{ route('admin.calendar.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span> Kalendarz</a>
+                        </li>
                     </ul>
                 </li>
             </ul>

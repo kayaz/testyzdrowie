@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\File;
 
 use App\Http\Controllers\Controller;
+use App\Models\Exam;
 use Illuminate\Http\Request;
 
 // CMS
@@ -18,33 +19,35 @@ class IndexController extends Controller
 
     public function __construct(FileRepository $repository, FileService $service)
     {
-//        $this->middleware('permission:file-list|file-create|file-edit|file-delete', [
-//            'only' => ['index','store']
-//        ]);
-//        $this->middleware('permission:file-create', [
-//            'only' => ['create','store']
-//        ]);
-//        $this->middleware('permission:file-edit', [
-//            'only' => ['edit','update']
-//        ]);
-//        $this->middleware('permission:file-delete', [
-//            'only' => ['destroy']
-//        ]);
+        $this->middleware('permission:file-list|file-create|file-edit|file-delete', [
+            'only' => ['index','store']
+        ]);
+        $this->middleware('permission:file-create', [
+            'only' => ['create','store']
+        ]);
+        $this->middleware('permission:file-edit', [
+            'only' => ['edit','update']
+        ]);
+        $this->middleware('permission:file-delete', [
+            'only' => ['destroy']
+        ]);
 
         $this->repository = $repository;
         $this->service = $service;
     }
 
-    public function index(Request $request)
+    public function index()
     {
         return view('admin.file.index', ['list' => $this->repository->all()]);
     }
 
-    public function create(File $file)
+    public function create()
     {
+        $exams = Exam::pluck('name', 'id');
         return view('admin.file.file-form', [
             'cardTitle' => 'Dodaj plik',
-            'backButton' => route('admin.file.index')
+            'backButton' => route('admin.file.index'),
+            'exams' => $exams
         ])->with('entry', File::make());
     }
 

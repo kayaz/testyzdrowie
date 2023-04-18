@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Notifications\PasswordResetNotification;
+use App\Notifications\UserChangeStatusNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -29,7 +31,9 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
-        'active'
+        'active',
+        'type',
+        'exam_id'
     ];
 
     /**
@@ -50,4 +54,57 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime'
     ];
+
+    public function exams()
+    {
+        return $this->hasManyThrough(
+            Exam::class,
+            ExamDateUser::class,
+            'user_id', // Foreign key on the exam_date_users table
+            'id', // Local key on the exams table
+            'id', // Local key on the users table
+            'exam_date_id' // Foreign key on the exam_date_users table
+        );
+    }
+
+    public function examDates()
+    {
+        return $this->hasManyThrough(
+            ExamDate::class,
+            ExamDateUser::class,
+            'user_id', // Foreign key on the exam_date_users table
+            'id', // Local key on the exam_dates table
+            'id', // Local key on the users table
+            'exam_date_id' // Foreign key on the exam_date_users table
+        );
+    }
+
+    public function examDateUsers()
+    {
+        return $this->hasMany('App\Models\ExamDateUser', 'user_id');
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordResetNotification($token));
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updated(function ($model) {
+            if ($model->isDirty('active')) {
+                $active = $model->active;
+                $user = User::find($model->id);
+                $user->notify(new UserChangeStatusNotification($active, $user));
+            }
+        });
+    }
 }

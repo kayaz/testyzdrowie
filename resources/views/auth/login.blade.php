@@ -18,6 +18,21 @@
         </div>
     </div>
     <div class="form-group row">
+        <div class="col-12">
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if ($message = session('message'))
+                <div class="alert alert-info">
+                    {{ $message }}
+                </div>
+            @endif
+        </div>
+    </div>
+    <div class="form-group row">
         <label for="email" class="col-12 col-md-4 col-form-label text-md-right">Adres e-mail</label>
         <div class="col-12 col-md-8">
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
@@ -49,10 +64,20 @@
     <div class="form-group row mb-0">
         <div class="col-12 col-md-8 offset-md-4">
             <button type="submit" class="btn">Zaloguj się</button>
-            @if (Route::has('password.request'))
-                <hr>
-                <a href="{{ route('password.request') }}">Zapomniałeś hasła?</a>
-            @endif
+        </div>
+        <div class="col-12">
+
+            <div class="row mt-4">
+                @if (Route::has('password.request'))
+                <div class="col-6 text-center border-end p-3">
+                    <a href="{{ route('password.request') }}">Zapomniałeś hasła?</a>
+                </div>
+                @endif
+                <div class="col-6 text-center p-3">
+                    <a href="{{ route("course.form") }}">Utwórz nowe konto</a>
+                </div>
+            </div>
+
         </div>
     </div>
 </form>

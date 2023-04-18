@@ -40,6 +40,20 @@
         <div class="col-12 col-md-8 offset-md-4">
             <button type="submit" class="btn w-100">Wyślij wiadomość</button>
         </div>
+        <div class="col-12">
+
+            <div class="row mt-4">
+                @if (Route::has('password.request'))
+                    <div class="col-6 text-center border-end p-3">
+                        <a href="{{ route('login') }}">Logowanie</a>
+                    </div>
+                @endif
+                <div class="col-6 text-center p-3">
+                    <a href="{{ route("course.form") }}">Utwórz nowe konto</a>
+                </div>
+            </div>
+
+        </div>
     </div>
 </form>
 @endsection

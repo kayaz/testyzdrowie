@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeSend;
+use App\Notifications\AdminEmailNotification;
+use App\Notifications\UserEmailNotification;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -11,6 +14,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -80,15 +85,9 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['form_name'],
             'surname' => $data['form_surname'],
             'specialization' => $data['form_specialization'],
@@ -102,18 +101,34 @@ class RegisterController extends Controller
             'email' => $data['form_email'],
             'password' => Hash::make($data['form_password']),
         ]);
+
+        $admin = User::first();
+
+        $admin_notify = [
+            'subject' => 'Podkarpacki Oddział PTMSiZP - rejestracja nowego konta: '.date('d-m-Y'),
+            'greeting' => 'Witaj '.$admin->name.',',
+            'body' =>'w systemie pojawiła się nowa rejestracja użytkownika.<br><table class="table"><tr><td>Data:</td><td>'.date('d-m-Y').'</td></tr><tr><td>Imie:</td><td>'.$data['form_name'].'</td></tr><tr><td>Nazwisko:</td><td>'.$data['form_surname'].'</td></tr><tr><td>Adres e-mail:</td><td>'.$data['form_email'].'</td></tr></table>',
+            'regards' => 'Pozdrawiam'
+        ];
+
+        Notification::send($admin, new AdminEmailNotification($admin_notify));
+
+        $user_notify = [
+            'subject' => 'Podkarpacki Oddział PTMSiZP - potwierdzenie rejestracji',
+            'greeting' => 'Witaj '.$user->name.',',
+            'body' => 'dziękujemy za dokonanie rejestracji w serwisie Podkarpacki Oddział PTMSiZP. Twoje konto wymaga weryfikacji przez administratora. Po aktywacji konta otrzymasz wiadomość.'
+        ];
+
+        Notification::send($user, new UserEmailNotification($user_notify));
+
+        return $user;
     }
 
     public function register(Request $request)
     {
-
-        dd($request);
-
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
-
-        $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {
             return $response;
@@ -121,6 +136,6 @@ class RegisterController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse([], 201)
-            : redirect($this->redirectPath());
+            : redirect()->route('thankyou');
     }
 }

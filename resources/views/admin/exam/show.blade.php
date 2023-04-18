@@ -17,7 +17,6 @@
             <nav class="nav">
                 <a class="nav-link {{ Request::routeIs('admin.exam.index') ? 'active' : '' }}" href="{{ route('admin.exam.index') }}"><span class="fe-book-open"></span> Lista egzaminów</a>
                 <a class="nav-link {{ Request::routeIs('admin.exam.show') ? 'active' : '' }}" href="{{ route('admin.exam.show', $exam) }}"><span class="fe-list"></span> Lista pytań</a>
-                <a class="nav-link {{ Request::routeIs('admin.exam.show') ? 'active' : '' }}" href="{{ route('admin.exam.show', $exam) }}"><span class="fe-archive"></span> Wyniki</a>
             </nav>
         </div>
 

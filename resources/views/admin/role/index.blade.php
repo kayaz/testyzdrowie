@@ -6,7 +6,7 @@
             <div class="card-head container-fluid">
                 <div class="row">
                     <div class="col-6 pl-0">
-                        <h4 class="page-title row"><i class="fe-users"></i>Role użytkowników</h4>
+                        <h4 class="page-title"><i class="fe-users"></i>Role użytkowników</h4>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                             <td>{{ $p->updated_at }}</td>
                             <td class="option-120">
                                 <div class="btn-group">
-                                    <a href="{{ route('admin.role.edit', $p) }}" class="btn action-button mr-1" data-toggle="tooltip" data-placement="top" title="Edytuj"><i class="fe-edit"></i></a>
+                                    <a href="{{ route('admin.role.edit', $p) }}" class="btn action-button me-1" data-toggle="tooltip" data-placement="top" title="Edytuj"><i class="fe-edit"></i></a>
                                     <form method="POST" action="{{ route('admin.role.destroy', $p) }}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}

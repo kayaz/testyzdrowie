@@ -492,19 +492,7 @@ a.fc-event:hover {
   }
 
 .fc-event .fc-event-main i {
-    padding: 6px;
-    border-radius: 3px;
-    position: absolute;
-    top: -4px;
-    bottom: -4px;
-    left: -9px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 21px;
-    width: 27px;
-    border-right: 1px solid rgba(255,255,255,0.4);
-    background: rgba(0,0,0,0.4);
+
 }
 
 /* dragging */
@@ -900,19 +888,6 @@ A HORIZONTAL event
 .fc-daygrid-day {
     height: 40px;
 }
-.fc-daygrid-day:before {
-    content: "Kliknij aby dodać";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 12px;
-    bottom: auto;
-    margin: auto;
-    display: none;
-    color: #888;
-    justify-content: center;
-    align-items: center;
-}
 .fc-daygrid-day:hover:before {
     display: flex;
 }
@@ -1291,7 +1266,7 @@ A VERTICAL event
     padding: 3px 8px;
 }
 .fc-timegrid-event .fc-event-main, .fc-h-event .fc-event-main {
-    padding: 2px 0 2px 25px;
+    padding: 5px;
     line-height: 15px;
 }
 .fc-timegrid-event .fc-event-time {

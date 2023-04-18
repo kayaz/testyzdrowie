@@ -12,10 +12,13 @@
                             <div class="card-head container">
                                 <div class="row">
                                     <div class="col-12 pl-0">
-                                        <h4 class="page-title row"><i class="fe-home"></i><a href="{{route('admin.role.index')}}">Role użytkowników</a><span class="d-inline-flex ml-2 mr-2">/</span>{{ $cardTitle }}</h4>
+                                        <h4 class="page-title"><i class="fe-home"></i><a href="{{route('admin.role.index')}}">Role użytkowników</a><span class="d-inline-flex me-2 ms-2">/</span>{{ $cardTitle }}</h4>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="card mt-3">
                             @include('form-elements.back-route-button')
                             <div class="card-body">
                                 <div class="row">
@@ -24,22 +27,24 @@
 
                                         <div class="form-group row">
                                             <label for="form_permission" class="col-2 col-form-label control-label"><div class="text-right">Zezwolenie na:</div></label>
-                                            <div class="col-6">
-                                                @foreach($permission as $value)
-                                                <div class="form-check form-check-inline p-3">
-                                                        <input
-                                                            class="form-check-input"
-                                                            name="permission[]"
-                                                            type="checkbox"
-                                                            id="permission_{{ $value->id }}"
-                                                            value="{{ $value->id }}"
-                                                        @if(in_array($value->id, $rolePermissions))
-                                                            checked
-                                                        @endif
-                                                        >
-                                                        <label class="form-check-label" for="permission_{{ $value->id }}">{{ $value->name }}</label>
-                                                    </div>
-                                                @endforeach
+                                            <div class="col-10">
+                                                <div class="role-list">
+                                                    @foreach($permission as $value)
+                                                        <div class="form-check form-check-inline">
+                                                            <input
+                                                                    class="form-check-input"
+                                                                    name="permission[]"
+                                                                    type="checkbox"
+                                                                    id="permission_{{ $value->id }}"
+                                                                    value="{{ $value->id }}"
+                                                                    @if(in_array($value->id, $rolePermissions))
+                                                                        checked
+                                                                    @endif
+                                                            >
+                                                            <label class="form-check-label" for="permission_{{ $value->id }}">@lang('permission.'.$value->name)</label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
                                                 @if($errors->first('permission'))<div class="invalid-feedback d-block">{{ $errors->first('permission') }}</div>@endif
                                             </div>
                                         </div>

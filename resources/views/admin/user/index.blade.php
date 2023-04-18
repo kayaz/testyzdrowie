@@ -34,8 +34,12 @@
                         <tr>
                             <th>#</th>
                             <th>Imię</th>
+                            <th>Nazwisko</th>
                             <th>Adres e-mail</th>
+                            <th>Telefon</th>
                             <th>Typ konta</th>
+                            <th>PESEL</th>
+                            <th>PWZ</th>
                             <th class="text-center">Status</th>
                             <th>Data utworzenia</th>
                             <th>Data edycji</th>
@@ -47,7 +51,9 @@
                             <tr>
                                 <th class="position" scope="row">{{ $index+1 }}</th>
                                 <td>{{ $p->name }}</td>
+                                <td>{{ $p->surname }}</td>
                                 <td>{{ $p->email }}</td>
+                                <td>{{ $p->phone }}</td>
                                 <td>
                                     @if(!empty($p->getRoleNames()))
                                         @foreach($p->getRoleNames() as $v)
@@ -55,11 +61,14 @@
                                         @endforeach
                                     @endif
                                 </td>
+                                <td>{{ $p->pesel }}</td>
+                                <td>{{ $p->practice }}</td>
                                 <td class="text-center">{!! status($p->active) !!}</td>
                                 <td>{{ $p->created_at }}</td>
                                 <td>{{ $p->updated_at }}</td>
                                 <td class="option-120">
                                     <div class="btn-group">
+                                        <a href="{{route('admin.user.show', $p)}}" class="btn action-button me-1" data-toggle="tooltip" data-placement="top" title="Pokaż"><i class="fe-user"></i></a>
                                         <a href="{{route('admin.user.edit', $p)}}" class="btn action-button me-1" data-toggle="tooltip" data-placement="top" title="Edytuj"><i class="fe-edit"></i></a>
                                         <form method="POST" action="{{route('admin.user.destroy', $p)}}">
                                             {{ csrf_field() }}

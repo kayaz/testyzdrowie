@@ -78,6 +78,11 @@ class IndexController extends Controller
         ]);
     }
 
+    public function show(User $user)
+    {
+        return view('admin.user.show', ['user' => $user]);
+    }
+
     public function update(UserFormRequest $request, $id)
     {
         $input = $request->all();
@@ -88,7 +93,15 @@ class IndexController extends Controller
         }
 
         $user = $this->repository->find($id);
+        $originalValues = $user->getOriginal();
+
         $user->update($input);
+
+        foreach ($originalValues as $key => $value) {
+            if ($value != $user->$key) {
+                echo "Attribute $key was changed from $value to {$user->$key}\n";
+            }
+        }
 
         DB::table('model_has_roles')->where('model_id', $id)->delete();
 

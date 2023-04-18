@@ -5,7 +5,7 @@
 @section('seo_description', '')
 
 @section('pageheader')
-    @include('layouts.partials.page-header', ['page' => '', 'header_file' => 'contact.jpg'])
+    @include('layouts.partials.page-header', ['title' => 'Kontakt', 'header_file' => 'pageheader.jpg'])
 @stop
 
 @section('content')

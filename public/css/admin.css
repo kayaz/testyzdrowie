@@ -73,6 +73,32 @@ p {
   background-color: #008595;
   border-color: #008595;
 }
+.role-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.role-list .form-check-inline {
+  flex: 1 0 21%;
+}
+.role-list .form-check-inline label {
+  border: 1px solid #d5d5d5;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  padding: 7px 15px;
+  cursor: pointer;
+  width: 100%;
+}
+.role-list .form-check-inline label:hover {
+  border-color: #00acc1;
+}
+.role-list .form-check-inline input {
+  display: none;
+}
+.role-list .form-check-input:checked[type="checkbox"] + label {
+  background: #00acc1;
+  border-color: #00acc1;
+  color: white;
+}
 /* Fonty
 ================================================== */
 @font-face {
@@ -1792,6 +1818,22 @@ a.nav-link:hover {
 .action-button.action-small {
   font-size: 13px;
 }
+.action-button.action-button-sm {
+  background: none;
+  color: #fff;
+  border-radius: 3px !important;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  line-height: normal;
+}
+.action-button.action-button-sm i {
+  color: #c41717;
+  font-size: 22px;
+}
 .btn.btn-sm.action-button {
   padding: 0 !important;
   width: 27px;
@@ -1855,17 +1897,27 @@ a.nav-link:hover {
   opacity: 0.5;
 }
 .section {
-  background: #1e1e2d;
+  background: #181c32;
   font-weight: 400;
   color: #fff;
   font-size: 20px;
   padding: 20px 30px;
   margin: 1rem -20px;
+  border-radius: 4px;
 }
 .form-group .section {
   font-size: 16px;
   padding: 1.25rem 1.3rem;
   margin: -17px -16px;
+}
+.table .section {
+  background: #181c32;
+  font-weight: 400;
+  color: #fff;
+  font-size: 15px;
+  padding: 10px 15px;
+  margin: 40px -20px 10px;
+  border-radius: 4px;
 }
 span.form-control-character-count {
   display: inline;
@@ -1899,6 +1951,9 @@ span.form-control-character-count:empty {
 span.form-control-character-count[href]:hover,
 span.form-control-character-count[href]:focus {
   background-color: #00acc1;
+}
+.alert-danger span {
+  display: flex;
 }
 /* Notes
 ================================================== */
@@ -2906,6 +2961,14 @@ span.actionBtn {
   margin: 3px 1px;
   background: #3d3d5e;
 }
+.row-pass,
+.row-pass:hover {
+  background: #d8f9e0;
+}
+.row-fail,
+.row-fail:hover {
+  background: #f9d8d8;
+}
 /* Lightbox
 ================================================== */
 body.lb-disable-scrolling {
@@ -3096,6 +3159,10 @@ body.lb-disable-scrolling {
   line-height: normal;
   color: #3F4254;
 }
+.table td.colspan {
+  border-top: 0;
+  padding: 0 1.3rem 0.75rem;
+}
 .table thead th {
   background: #181c32;
   color: white;
@@ -3137,7 +3204,34 @@ body.lb-disable-scrolling {
 }
 .table tbody tr:hover td,
 .table tbody tr:hover th {
-  background: #f6f6ff;
+  background: #f4feff;
+}
+.w-250 {
+  width: 250px;
+}
+.table td.table-dates {
+  padding: 0;
+}
+.table td.table-dates ul {
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.table td.table-dates li {
+  padding: 5px 15px;
+  text-align: left;
+  flex: 0 0 auto;
+  width: 100%;
+  border-bottom: 1px solid #dee2e6;
+}
+.table td.table-dates li:last-child {
+  border-bottom: 0;
+}
+.table td.table-dates li:hover {
+  background: white;
 }
 .collapsing {
   -webkit-transition: none;

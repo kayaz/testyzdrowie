@@ -11,17 +11,17 @@
                 <div class="col-7">
                     <nav>
                         <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                            <li class="active"><a href="/">Witamy</a></li>
-                            <li><a href="{{ route("about") }}">O nas</a></li>
+                            <li><a href="/">Witamy</a></li>
+                            <li {{ Request::routeIs('about') ? 'class=active' : '' }}><a href="{{ route("about") }}">O nas</a></li>
                             <li><a href="">Konferencje i szkolenia</a></li>
-                            <li><a href="{{ route("course.index") }}">Kursy</a></li>
-                            <li><a href="{{ route("contact.index") }}">Kontakt</a></li>
+                            <li {{ Request::routeIs('course.*') ? 'class=active' : '' }}><a href="{{ route("course.index") }}">Kursy</a></li>
+                            <li {{ Request::routeIs('contact.*') ? 'class=active' : '' }}><a href="{{ route("contact.index") }}">Kontakt</a></li>
                         </ul>
                     </nav>
                 </div>
                 @guest
                 <div class="col-2 d-flex justify-content-center align-items-center">
-                    <a href="{{ route("course.index") }}" class="btn btn-theme w-100">ZAPISZ SIĘ</a>
+                    <a href="{{ route("course.form") }}" class="btn btn-theme w-100">ZAPISZ SIĘ</a>
                 </div>
                 @endguest
 
@@ -36,10 +36,9 @@
                         <li><a href="{{ route('login') }}">Zaloguj się</a></li>
                         @endguest
                         @auth
-                        <li><a href="">Informacje</a></li>
-                        <li><a href="">Materiały dydaktyczne</a></li>
-                        <li><a href="">Materiały wideo</a></li>
-                        <li><a href=""><b>Rozwiąż test</b></a></li>
+                        @if($examDateUsers->count() > 0)
+                            <li><a href="{{ route('student.index') }}">Moje kursy</a></li>
+                        @endif
                         <li><a href="">Zmień hasło</a></li>
                         @can('admin-panel')
                         <li><a href="/admin" class="text-danger">Administrator</a></li>

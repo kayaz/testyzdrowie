@@ -24,6 +24,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
+                                @include('form-elements.html-select', [
+                                    'label' => 'Egzamin',
+                                    'name' => 'exam_id',
+                                    'selected' => $entry->exam_id,
+                                    'select' => $exams
+                                ])
                                 @include('form-elements.html-input-text', ['label' => 'Nazwa', 'name' => 'name', 'value' => $entry->name, 'required' => 1])
                                 @include('form-elements.html-input-text', ['label' => 'Opis', 'name' => 'description', 'value' => $entry->description])
                                 @include('form-elements.html-input-file', ['label' => 'Plik', 'name' => 'file'])
@@ -32,8 +38,8 @@
                     </div>
                 </div>
             </div>
-            @if(isset($parent_id))
-                <input type="hidden" name="parent_id" value="{{ $parent_id }}">
+            @if(isset($exam_id))
+                <input type="hidden" name="exam_id" value="{{ $exam_id }}">
             @endif
             @include('form-elements.submit', ['name' => 'submit', 'value' => 'Zapisz'])
         </form>

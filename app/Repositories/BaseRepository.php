@@ -28,6 +28,10 @@ class BaseRepository implements EloquentRepositoryInterface
     {
         return $this->model->orderBy('sort', $order)->get();
     }
+    public function allActive(): Collection
+    {
+        return $this->model->whereActive(1)->get();
+    }
 
     public function idDesc(): Collection
     {
