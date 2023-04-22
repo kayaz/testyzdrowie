@@ -31,6 +31,6 @@ class ExamAttempt extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->select('id', 'name', 'surname');
+        return $this->belongsTo(User::class)->select('id', 'name', 'surname', 'pesel', 'practice', 'postcode', 'city', 'address', 'phone', 'email');
     }
 }
