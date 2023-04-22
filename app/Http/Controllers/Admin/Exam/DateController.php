@@ -12,6 +12,7 @@ use App\Models\ExamAttempt;
 use App\Models\ExamDate;
 use App\Models\ExamDateUser;
 use App\Repositories\ExamDateRepository;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DateController extends Controller
@@ -42,7 +43,9 @@ class DateController extends Controller
 
     public function export(ExamDate $examdate)
     {
-        return Excel::download(new ExamAttemptExport($examdate->id), 'wyniki-egzaminu.xlsx');
+        $exam = $examdate->exam()->get();
+        $filename = "export_" . date("Y-m-d_H-i", time());
+        return Excel::download(new ExamAttemptExport($examdate->id), Str::slug($exam->first()->name).'_wyniki_egzaminu_'.$filename.'.xlsx');
     }
 
 
