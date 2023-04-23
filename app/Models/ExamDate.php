@@ -3,8 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 class ExamDate extends Model
 {
+    use LogsActivity;
+
     protected $table = 'exam_dates';
 
     /**

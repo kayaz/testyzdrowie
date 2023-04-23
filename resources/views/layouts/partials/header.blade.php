@@ -3,8 +3,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-3">
-                    <a href="/" class="d-flex justify-content-center align-items-center">
-                        <div id="logo"><img src="{{ asset('/images/logo.png') }}" alt=""></div>
+                    <a href="/" class="d-flex justify-content-center align-items-center" title="{!! settings()->get("page_logo_title") !!}">
+                        <div id="logo"><img src="{{ asset('/images/logo.png') }}" alt="{!! settings()->get("page_logo_alt") !!}"></div>
                         <h1>Podkarpacki Oddział PTMSiZP</h1>
                     </a>
                 </div>
@@ -13,7 +13,7 @@
                         <ul class="list-unstyled mb-0 d-flex justify-content-end">
                             <li><a href="/">Witamy</a></li>
                             <li {{ Request::routeIs('about') ? 'class=active' : '' }}><a href="{{ route("about") }}">O nas</a></li>
-                            <li><a href="">Konferencje i szkolenia</a></li>
+                            <li {{ Request::routeIs('article') ? 'class=active' : '' }}><a href="{{ route("article") }}">Konferencje i szkolenia</a></li>
                             <li {{ Request::routeIs('course.*') ? 'class=active' : '' }}><a href="{{ route("course.index") }}">Kursy</a></li>
                             <li {{ Request::routeIs('contact.*') ? 'class=active' : '' }}><a href="{{ route("contact.index") }}">Kontakt</a></li>
                         </ul>

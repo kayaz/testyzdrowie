@@ -19,6 +19,8 @@ Route::group(['namespace' => 'Front'], function () {
     Route::get('/kontakt', 'ContactController@index')->name('contact.index');
     Route::post('/kontakt', 'ContactController@form')->name('contact.form');
 
+    Route::get('/konferencje-i-szkolenia', 'ArticleController@index')->name('article');
+
     Route::get('/lista-kursow', 'CourseController@index')->name('course.index');
     Route::get('/nowe-konto', 'CourseController@form')->name('course.form');
     Route::post('/kurs', 'CourseController@check')->name('course.check');

@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class File extends Model
 {
+    use LogsActivity;
     /**
      * The attributes that are mass assignable.
      *

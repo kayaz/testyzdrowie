@@ -53,6 +53,13 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span> Blokada dostępu</a>
                         </li>
+
+                        <li {{ Request::routeIs('admin.article.*') ? 'class=active' : '' }}>
+                            <a href="{{ route('admin.article.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span> Aktualności</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="active">

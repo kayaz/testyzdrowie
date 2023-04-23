@@ -701,6 +701,9 @@ article .article-date .bigDate {
 article .article-date .smallDate {
   font-size: 18px;
 }
+article .btn-theme {
+  padding: 10px 30px;
+}
 .la,
 .lab,
 .lad,

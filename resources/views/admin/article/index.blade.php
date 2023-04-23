@@ -19,9 +19,10 @@
                         <thead class="thead-default">
                         <tr>
                             <th>Tytuł</th>
-                            <th>Miniaturka</th>
                             <th class="text-center">Data</th>
                             <th class="text-center">Status</th>
+                            <th>Data dodania</th>
+                            <th>Data modyfikacji</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -29,9 +30,10 @@
                         @foreach ($list as $item)
                             <tr id="recordsArray_{{ $item->id }}" class="list-category-{{$item->category_id}}">
                                 <td>{{ $item->title }}</td>
-                                <td>@if($item->file)<img src="{{asset('uploads/articles/thumbs/'.$item->file)}}" alt="{{ $item->title }}" style="width: 150px;border-radius: 5px;border:1px solid white">@endif</td>
-                                <td class="text-center">{{ $item->created_at }}</td>
+                                <td class="text-center">{{ $item->date }}</td>
                                 <td class="text-center">{!! status($item->status) !!}</td>
+                                <td>{{ $item->created_at }}</td>
+                                <td>{{ $item->updated_at }}</td>
                                 <td class="option-120">
                                     <div class="btn-group">
                                         <a href="{{route('admin.article.edit', $item->id)}}" class="btn action-button me-1" data-bs-toggle="tooltip" data-placement="top" data-bs-title="Edytuj wpis"><i class="fe-edit"></i></a>

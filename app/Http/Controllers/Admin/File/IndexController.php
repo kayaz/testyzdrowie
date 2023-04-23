@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\File;
 
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
-use Illuminate\Http\Request;
 
 // CMS
 use App\Models\File;
@@ -14,8 +13,8 @@ use App\Services\FileService;
 
 class IndexController extends Controller
 {
-    private $repository;
-    private $service;
+    private FileRepository $repository;
+    private FileService $service;
 
     public function __construct(FileRepository $repository, FileService $service)
     {
@@ -53,22 +52,21 @@ class IndexController extends Controller
 
     public function store(FileFormRequest $request)
     {
-
         $entry = $this->repository->create($request->validated());
-
         if ($request->hasFile('file')) {
             $this->service->upload($request->name, $request->file('file'), $entry);
         }
-
         return redirect(route('admin.file.index'))->with('success', 'Wpis zaktualizowany');
     }
 
     public function edit(int $id)
     {
+        $exams = Exam::pluck('name', 'id');
         return view('admin.file.file-form', [
             'entry' => $this->repository->find($id),
             'cardTitle' => 'Edytuj plik',
-            'backButton' => route('admin.file.index')
+            'backButton' => route('admin.file.index'),
+            'exams' => $exams
         ]);
     }
 
