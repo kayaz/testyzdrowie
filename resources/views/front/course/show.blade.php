@@ -43,7 +43,7 @@
                                         @can('exam-register')
                                             <div class="col-12 rules">
                                                 <input type="checkbox" id="examRule" name="rules" class="validate[required]" data-prompt-position="topRight:18px">
-                                                <label for="examRule">Przeczytałem i akceptuje <a href="#" target="_blank">regulamin</a></label>
+                                                <label for="examRule">Przeczytałem i akceptuje <a href="#" target="_blank" data-bs-toggle="modal" data-bs-target="#exampleModal">regulamin</a></label>
                                             </div>
                                         @else
                                             <p class="text-danger">Twoje konto wymaga weryfikacji.</p>
@@ -65,6 +65,23 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Regulamin {{ $exam->name }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-rules-body">
+                    {!! $exam->statute !!}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-theme" data-bs-dismiss="modal">ZAMKNIJ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @auth
     @push('scripts')

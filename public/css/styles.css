@@ -478,6 +478,15 @@ form .section-heading {
   font-size: 19px;
   margin: 30px 0 20px;
 }
+.modal-rules-body p,
+.modal-rules-body li {
+  font-size: 16px;
+  line-height: 24px;
+}
+.modal-rules-body ol,
+.modal-rules-body ul {
+  margin: 20px 0;
+}
 /* Kursy
 ================================================== */
 .course {
