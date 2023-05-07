@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     function index(){
-        $articles = Article::paginate(10);
+        $articles = Article::orderBy('date', 'desc')->paginate(10);
         return view('front.article.index', ['articles' => $articles]);
     }
 }

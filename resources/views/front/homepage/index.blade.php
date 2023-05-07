@@ -28,8 +28,8 @@
                             <article class="row">
                                 <div class="col-2">
                                     <div class="article-date">
-                                        <span class="bigDate">09</span>
-                                        <span class="smallDate">12.2022</span>
+                                        <span class="bigDate">{{ date("d", strtotime($article->date)) }}</span>
+                                        <span class="smallDate">{{ date("m", strtotime($article->date)) }}.{{ date("Y", strtotime($article->date)) }}</span>
                                     </div>
                                 </div>
                                 <div class="col-10 ps-4 pt-4 pb-4">

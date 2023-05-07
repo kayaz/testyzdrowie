@@ -46,11 +46,11 @@
                                 <td class="text-center">{{ $item->correct }}</td>
                                 <td class="option-120">
                                     <div class="btn-group">
-                                        <a href="{{route('admin.question.edit', [$exam, $item->id])}}" class="btn action-button me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edytuj egzamin"><i class="fe-edit"></i></a>
+                                        <a href="{{route('admin.question.edit', [$exam, $item->id])}}" class="btn action-button me-1" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edytuj pytanie"><i class="fe-edit"></i></a>
                                         <form method="POST" action="{{route('admin.question.destroy', [$exam, $item->id])}}">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
-                                            <button type="submit" class="btn action-button confirm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Usuń egzamin" data-id="{{ $item->id }}"><i class="fe-trash-2"></i></button>
+                                            <button type="submit" class="btn action-button confirm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Usuń pytanie" data-id="{{ $item->id }}"><i class="fe-trash-2"></i></button>
                                         </form>
                                     </div>
                                 </td>
