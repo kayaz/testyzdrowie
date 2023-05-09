@@ -54,9 +54,9 @@ class IndexController extends Controller
         return redirect(route('admin.exam.index'))->with('success', 'Nowy egzamin dodany');
     }
 
-    public function show(Exam $exam, Question $question)
+    public function show(Exam $exam)
     {
-        return view("admin.exam.show", ['list' => $question->all(), 'exam' => $exam]);
+        return view("admin.exam.show", ['exam' => $exam, 'list' => $exam->questions()->get()]);
     }
 
     public function edit(Exam $exam)
