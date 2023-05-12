@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Contracts\Validation\Validator;
 
-class ExamDateFormRequest extends FormRequest
+class ExamDateEditFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,6 @@ class ExamDateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'exam_id' => 'required|integer',
             'start' => 'required|date_format:Y-m-d|before_or_equal:end',
             'end' => 'required|date_format:Y-m-d|after_or_equal:start',
             'exam' => 'required|date_format:Y-m-d|after_or_equal:start|before_or_equal:end'

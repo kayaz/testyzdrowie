@@ -18,6 +18,7 @@ class ExamDate extends Model
      */
     protected $fillable = [
         'exam_id',
+        'exam',
         'start',
         'end'
     ];
@@ -45,7 +46,9 @@ class ExamDate extends Model
      */
     public function getTitleAttribute()
     {
-        return $this->attributes['title'].' - <i class="las la-user"></i> '.$this->attributes['count'];
+        if(isset($this->attributes['title'])) {
+            return $this->attributes['title'].' - <i class="las la-user"></i> '.$this->attributes['count'];
+        }
     }
 
     /**
@@ -53,10 +56,10 @@ class ExamDate extends Model
      */
     public function getColorAttribute()
     {
-        if($this->attributes['active'] == 0) {
+        if(isset($this->attributes['active']) && $this->attributes['active'] == 0) {
             return $this->attributes['color'] =  '#949494';
         }
-        if($this->attributes['active'] == 1) {
+        if(isset($this->attributes['active']) && $this->attributes['active'] == 1) {
             return $this->attributes['color'] =  '#1f9110';
         }
     }

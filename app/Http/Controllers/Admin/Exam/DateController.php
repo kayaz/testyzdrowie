@@ -6,6 +6,7 @@ use App\Exports\ExamAttemptExport;
 use App\Http\Controllers\Controller;
 
 // CMS
+use App\Http\Requests\ExamDateEditFormRequest;
 use App\Http\Requests\ExamDateFormRequest;
 use App\Models\Exam;
 use App\Models\ExamAttempt;
@@ -29,6 +30,14 @@ class DateController extends Controller
     {
         if (request()->ajax()) {
             $this->repository->create($request->validated());
+            return response()->json(['success' => true]);
+        }
+    }
+
+    public function update(ExamDateEditFormRequest $request, ExamDate $examdate)
+    {
+        if (request()->ajax()) {
+            $this->repository->update($request->validated(), $examdate);
             return response()->json(['success' => true]);
         }
     }

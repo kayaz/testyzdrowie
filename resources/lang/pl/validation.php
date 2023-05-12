@@ -148,6 +148,7 @@ return [
     'attributes' => [
         'start' => 'Data rozpoczęcia',
         'end' => 'Data zakończenia',
+        'exam' => 'Data egzaminu',
         'form_pesel' => 'PESEL',
         'form_specialization' => 'SPECJALIZACJA',
         'form_practice' => 'PWZ',

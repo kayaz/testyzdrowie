@@ -58,6 +58,17 @@
                                                             @endif
                                                         </div>
                                                     </div>
+                                                    <div class="form-group row">
+                                                        <label for="inputDateExam" class="col-5 col-form-label control-label required text-end">Data egzaminu</label>
+                                                        <div class="col-7">
+                                                            <input type="text" value=""
+                                                                   class="validate[required] form-control @error('exam') is-invalid @enderror"
+                                                                   id="inputDateExam" name="exam">
+                                                            @if($errors->first('exam'))
+                                                                <div class="invalid-feedback d-block">{{ $errors->first('exam') }}</div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,14 +108,24 @@
                                         <ul class="list-unstyled mb-0 w-250">
                                             @foreach($item->dates as $date)
                                             <li>
-                                                <a href="{{route('admin.examdate.show', $date)}}">{{ $date->start }} <i class="las la-long-arrow-alt-right"></i> {{ $date->end }}</a>
-                                                @if($date->users()->count() == 0)
-                                                <form method="POST" action="{{route('admin.examdate.destroy', $date)}}" class="float-end">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-                                                    <button type="submit" class="btn action-button action-button-sm confirm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Usuń termin" data-id="{{ $date->id }}"><i class="las la-calendar-times"></i></button>
-                                                </form>
-                                                @endif
+                                                <div class="row">
+                                                    <div class="col-9">
+                                                        <a href="{{route('admin.examdate.show', $date)}}">
+                                                            <p><i class="las la-calendar-day"></i> {{ $date->start }}</p>
+                                                            <p><i class="las la-calendar-day"></i>{{ $date->end }}</p>
+                                                            @if($date->exam) <p><i class="las la-graduation-cap"></i> {{ $date->exam }}</p> @endif </a>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="row h-100">
+                                                            <div class="col-12 d-flex justify-content-end align-items-start">
+                                                                @if($date->users()->count() == 0) <form method="POST" action="{{route('admin.examdate.destroy', $date)}}" class="float-end">{{ csrf_field() }}{{ method_field('DELETE') }}<button type="submit" class="btn action-button action-button-sm confirm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Usuń termin" data-id="{{ $date->id }}"><i class="las la-calendar-times"></i></button></form> @endif
+                                                            </div>
+                                                            <div class="col-12 d-flex justify-content-end align-items-end">
+                                                                <button type="button" class="btn action-button action-button-sm" data-bs-toggle="modal" data-bs-tooltip="tooltip" data-bs-placement="top" data-examdate="{{$date->id}}" data-bs-trigger="hover" data-bs-title="Edytuj termin" data-bs-target="#bootstrapmodal"><i class="las la-calendar-plus"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </li>
                                             @endforeach
                                         </ul>
@@ -148,14 +169,22 @@
                 eventModal = new bootstrap.Modal(modal),
                 form = document.getElementById('modalForm'),
                 start = $('#inputDateStart'),
+                exam_date = $('#inputDateExam'),
                 exam_id = $('#inputExamId'),
                 end = $('#inputDateEnd');
             modal.addEventListener('shown.bs.modal', function (e) {
                 form.reset();
+                exam_id.attr('id', 'inputExamId');
+
                 const exam = $(e.relatedTarget).data('exam');
-                $(e.currentTarget).find('input[name="exam_id"]').val(exam);
+                const examDate = $(e.relatedTarget).data('examdate');
 
                 start.datepicker({
+                    format: 'yyyy-mm-dd',
+                    language: 'pl',
+                    autoclose: true
+                });
+                exam_date.datepicker({
                     format: 'yyyy-mm-dd',
                     language: 'pl',
                     autoclose: true
@@ -165,6 +194,42 @@
                     language: 'pl',
                     autoclose: true
                 });
+
+                console.log(examDate);
+
+                if(examDate){
+                    const modalTitle = modal.querySelector('.modal-title');
+                    modalTitle.innerText = 'Edytuj termin'; // Update the title text
+
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', '/admin/examdate/show/'+ examDate);
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                const response = JSON.parse(xhr.responseText);
+
+                                if (response.start) {
+                                    start.datepicker('setDate', response.start);
+                                }
+                                if (response.end) {
+                                    end.datepicker('setDate', response.end);
+                                }
+                                if (response.exam) {
+                                    exam_date.datepicker('setDate', response.exam);
+                                }
+
+                                exam_id.attr('id', 'inputExamDateId');
+                                exam_id.val(examDate);
+
+                            } else {
+                                console.log(xhr.statusText);
+                            }
+                        }
+                    };
+                    xhr.send();
+                }
+
+                $(e.currentTarget).find('input[name="exam_id"]').val(exam);
             })
             modal.addEventListener('hidden.bs.modal', function () {
                 exam_id.val('');
@@ -174,23 +239,24 @@
             const alert = $('.alert-danger');
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
+
+                const examDateId = $('#inputExamDateId').val();
+                const url = examDateId ? "/admin/examdate/" + examDateId : "{{ route('admin.examdate.store') }}";
+                const method = examDateId ? 'PUT' : 'POST';
+
+                const requestData = {
+                    '_token': '{{ csrf_token() }}',
+                    'start': start.val(),
+                    'end': end.val(),
+                    'exam': exam_date.val(),
+                    'exam_id': exam_id.val()
+                };
+
                 $.ajax({
-                    url: "{{ route('admin.examdate.store') }}",
-                    method: 'POST',
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                        'start': start.val(),
-                        'end': end.val(),
-                        'exam_id': exam_id.val()
-                    },
+                    url: url,
+                    method: method,
+                    data: requestData,
                     success: function () {
-                        // eventModal.hide();
-                        // toastr.options =
-                        //     {
-                        //         "closeButton": true,
-                        //         "progressBar": true
-                        //     }
-                        // toastr.success("Wpis został poprawnie dodany");
                         window.location.reload();
                     },
                     error: function (result) {
@@ -204,7 +270,6 @@
                     }
                 });
             });
-
 
             const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-tooltip="tooltip"]'));
             const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
