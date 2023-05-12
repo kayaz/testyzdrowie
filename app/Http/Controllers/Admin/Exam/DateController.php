@@ -52,16 +52,17 @@ class DateController extends Controller
 
     public function export(ExamDate $examdate)
     {
-        $exam = $examdate->exam()->get();
+        $exam = $examdate->exam()->first();
         $filename = "export_" . date("Y-m-d_H-i", time());
-        return Excel::download(new ExamAttemptExport($examdate->id), Str::slug($exam->first()->name).'_wyniki_egzaminu_'.$filename.'.xlsx');
+        return Excel::download(new ExamAttemptExport($examdate->id), Str::slug($exam->name).'_wyniki_egzaminu_'.$filename.'.xlsx');
     }
 
 
     public function index(ExamDate $examdate)
     {
         $exameAttempts = ExamAttempt::whereDateId($examdate->id)->with('user')->get();
-        return view('admin.exam.date.index', [ 'examdate' => $examdate, 'exam' => $examdate->exam, 'exameAttempts' => $exameAttempts ]);
+
+        return view('admin.exam.date.index', [ 'examdate' => $examdate, 'exam' => $examdate->exam()->first(), 'exameAttempts' => $exameAttempts ]);
     }
 
     public function destroyRegister(ExamDate $examdate, ExamDateUser $examdateuser)
