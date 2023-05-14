@@ -20,6 +20,7 @@ Route::group([
         'role' => 'Role\IndexController',
         'greylist' => 'Greylist\IndexController',
         'article' => 'Article\IndexController',
+        'page' => 'Page\IndexController',
         'file' => 'File\IndexController',
         'exam' => 'Exam\IndexController',
         'examdate' => 'Exam\DateController',

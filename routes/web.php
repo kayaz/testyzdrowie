@@ -31,7 +31,7 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::get('/moje-kursy', 'StudentController@index')->name('student.index')->middleware(['auth']);
 
-    Route::get('/moje-kursy/{exam}-{date}', 'ExamController@info')->name('exam.info')->middleware(['exam.date.registration']);
+    Route::get('/moje-kursy/{exam}-{date}', 'ExamController@info')->name('exam.info');
 
     Route::get('/nowe-konto/podziekowanie', 'ThankYouController@index')->name('thankyou');
 
@@ -42,8 +42,11 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::group(['middleware' => ['auth', 'can:user-test']], function () {
         Route::get('/egzamin/{exam}-{date}', 'ExamController@index')->name('exam.index')->middleware(['exam.date.registration']);
+
         Route::get('/egzamin/start/{exam}-{date}', 'ExamController@show')->name('exam.show')->middleware(['exam.date.registration']);
+
         Route::post('/egzamin/{exam}-{date}', 'ExamController@store')->name('exam.store');
+
         Route::get('/egzamin/wynik/{exam}-{date}-{attempt}', 'ExamController@result')->name('exam.result');
     });
 

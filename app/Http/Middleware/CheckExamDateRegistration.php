@@ -29,7 +29,7 @@ class CheckExamDateRegistration
             abort(404);
         }
 
-        $startCarbonDate = Carbon::createFromFormat('Y-m-d', $examDate->start);
+        $startCarbonDate = Carbon::createFromFormat('Y-m-d', $examDate->exam);
         $endCarbonDate = Carbon::createFromFormat('Y-m-d', $examDate->end);
         $currentDate = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
 

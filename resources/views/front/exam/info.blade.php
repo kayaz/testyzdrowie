@@ -23,8 +23,9 @@
                                         <p><i class="las la-calendar-day"></i>  {{$examDateUser->examDate->start }} <i class="las la-long-arrow-alt-right me-2 ms-2"></i> {{$examDateUser->examDate->end }}</p>
                                         @if(checkExam($examDateUser->examDate->start, $examDateUser->examDate->end))
                                             <span class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">SZCZEGÓŁY</span>
-
-                                            <a href="{{ route('exam.index', [$examDateUser->exam, $examDateUser->examDate]) }}" class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">ROZPOCZNIJ TEST</a>
+                                            @if(checkExam($examDateUser->examDate->exam, $examDateUser->examDate->end))
+                                                <a href="{{ route('exam.index', [$examDateUser->exam, $examDateUser->examDate]) }}" class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">ROZPOCZNIJ TEST</a>
+                                            @endif
                                         @endif
                                         @if(checkExam($examDateUser->examDate->start, $examDateUser->examDate->end))
                                     </a>
@@ -37,8 +38,9 @@
                     <div class="ps-5">
                         <h2 class="text-center">{{ $exam->name }}</h2>
                         <h4 class="text-center mt-3"><i class="las la-calendar-day"></i>  {{$date->start }} <i class="las la-long-arrow-alt-right me-2 ms-2"></i> {{$date->end }}</h4>
+                        <h4 class="text-center mt-3"><i class="las la-graduation-cap"></i> {{$date->exam }} <i class="las la-long-arrow-alt-right me-2 ms-2"></i> {{$date->end }}</h4>
 
-                        @if(checkExam($date->start, $date->end))
+                        @if(checkExam($date->exam, $date->end))
                         <div class="row mt-5 mb-4">
                             <div class="col-12 text-center">
                                 <a href="{{ route('exam.index', [$exam, $date]) }}" class="btn btn-theme btn-theme-red btn-big">ROZPOCZNIJ TEST</a>
@@ -48,7 +50,7 @@
 
                         <ul class="nav nav-tabs mt-5" id="examTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc-tab-pane" type="button" role="tab" aria-controls="desc-tab-pane" aria-selected="true">Regulamin</button>
+                                <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc-tab-pane" type="button" role="tab" aria-controls="desc-tab-pane" aria-selected="true">Regulamin testu</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="files-tab" data-bs-toggle="tab" data-bs-target="#files-tab-pane" type="button" role="tab" aria-controls="files-tab-pane" aria-selected="false">Pliki do pobrania</button>

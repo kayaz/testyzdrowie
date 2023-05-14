@@ -50,7 +50,7 @@
                                 <td class="text-center">{{ $item->answers_empty }}</td>
                                 <td class="text-center">{{ $item->date_start }}</td>
                                 <td class="text-center">{{ $item->date_end }}</td>
-                                <td class="text-center">{{ convertSec2Min($item->time) }}</td>
+                                <td class="text-center">@if($item->time) {{ convertSec2Min($item->time) }}@endif</td>
                                 <td class="option-120">
                                     <div class="btn-group">
                                         <form method="POST" action="">

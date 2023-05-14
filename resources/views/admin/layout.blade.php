@@ -60,6 +60,13 @@
                                     <span class="bullet bullet-dot"></span>
                                 </span> Aktualności</a>
                         </li>
+
+                        <li {{ Request::routeIs('admin.page.*') ? 'class=active' : '' }}>
+                            <a href="{{ route('admin.page.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span> Strony</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="active">
