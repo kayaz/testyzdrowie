@@ -5,7 +5,7 @@
         <div class="card-head container-fluid">
             <div class="row">
                 <div class="col-6 pl-0">
-                    <h4 class="page-title"><i class="fe-book-open"></i><a href="{{ route('admin.exam.index') }}">Egzaminy</a><span class="d-inline-flex me-2 ms-2">/</span>{{$exam->name}}</h4>
+                    <h4 class="page-title"><i class="fe-book-open"></i><a href="{{ route('admin.exam.index') }}">Kursy</a><span class="d-inline-flex me-2 ms-2">/</span>{{$exam->name}}</h4>
                 </div>
                 <div class="col-6 d-flex justify-content-end align-items-center form-group-submit">
                     <a href="{{route('admin.question.create', $exam)}}" class="btn btn-primary">Dodaj pytanie</a>
@@ -15,7 +15,7 @@
 
         <div class="card-header border-bottom card-nav">
             <nav class="nav">
-                <a class="nav-link {{ Request::routeIs('admin.exam.index') ? 'active' : '' }}" href="{{ route('admin.exam.index') }}"><span class="fe-book-open"></span> Lista egzaminów</a>
+                <a class="nav-link {{ Request::routeIs('admin.exam.index') ? 'active' : '' }}" href="{{ route('admin.exam.index') }}"><span class="fe-book-open"></span> Lista kursów</a>
                 <a class="nav-link {{ Request::routeIs('admin.exam.show') ? 'active' : '' }}" href="{{ route('admin.exam.show', $exam) }}"><span class="fe-list"></span> Lista pytań</a>
             </nav>
         </div>

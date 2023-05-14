@@ -19,7 +19,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class DateController extends Controller
 {
 
-    private $repository;
+    private ExamDateRepository $repository;
 
     public function __construct(ExamDateRepository $repository)
     {

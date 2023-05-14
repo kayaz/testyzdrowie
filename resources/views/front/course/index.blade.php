@@ -36,7 +36,7 @@
                     <div class="course">
                         <i class="las la-calendar"></i>
                         <h3>{{ $course->name }}</h3>
-                        @if($course->dates->count() > 0)
+                        @if($course->availableDates->count() > 0)
                             <p>Dostępne terminy:</p>
                             @auth
                             <form action="{{ route('course.check') }}" method="post" class="validateForm">
@@ -44,7 +44,7 @@
                             @endauth
 
                                 <ul class="list-unstyled">
-                                    @foreach($course->dates as $exam_date)
+                                    @foreach($course->availableDates as $exam_date)
                                         <li>
                                             @auth
                                                 @can('exam-register')

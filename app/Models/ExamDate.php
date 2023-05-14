@@ -20,7 +20,8 @@ class ExamDate extends Model
         'exam_id',
         'exam',
         'start',
-        'end'
+        'end',
+        'active'
     ];
 
     public function users()

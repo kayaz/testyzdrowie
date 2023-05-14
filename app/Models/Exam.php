@@ -46,6 +46,14 @@ class Exam extends Model
         return $this->hasMany('App\Models\ExamDate');
     }
 
+    /**
+     * Get exam dates that have a start date before today
+     */
+    public function availableDates()
+    {
+        return $this->hasMany('App\Models\ExamDate')->where('start', '>', now()->format('Y-m-d'))->whereActive(1);
+    }
+
     public function examDateUsers()
     {
         return $this->hasManyThrough(

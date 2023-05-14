@@ -72,7 +72,7 @@
                             <a href="{{ route('admin.exam.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
-                                </span> Egzaminy</a>
+                                </span> Kursy</a>
                         </li>
                         <li {{ Request::routeIs('admin.file.*') ? 'class=active' : '' }}>
                             <a href="{{ route('admin.file.index') }}">

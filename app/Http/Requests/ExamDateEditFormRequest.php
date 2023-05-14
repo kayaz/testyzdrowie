@@ -28,7 +28,8 @@ class ExamDateEditFormRequest extends FormRequest
         return [
             'start' => 'required|date_format:Y-m-d|before_or_equal:end',
             'end' => 'required|date_format:Y-m-d|after_or_equal:start',
-            'exam' => 'required|date_format:Y-m-d|after_or_equal:start|before_or_equal:end'
+            'exam' => 'required|date_format:Y-m-d|after_or_equal:start|before_or_equal:end',
+            'active' => 'boolean'
         ];
     }
 

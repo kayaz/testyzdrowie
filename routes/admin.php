@@ -35,7 +35,7 @@ Route::group([
     Route::get('examdate/results/{examdate}', 'Exam\DateController@index')->name('examdate.index');
     Route::get('examdate/export/{examdate}', 'Exam\DateController@export')->name('examdate.export');
     Route::get('examdate/show/{id}', function ($id) {
-        $examDate = App\Models\ExamDate::select('exam', 'start', 'end')->find($id);
+        $examDate = App\Models\ExamDate::select('exam', 'start', 'end', 'active')->find($id);
         return response()->json($examDate);
     });
 

@@ -5,17 +5,17 @@
         <div class="card-head container-fluid">
             <div class="row">
                 <div class="col-6 pl-0">
-                    <h4 class="page-title"><i class="fe-book-open"></i>Egzaminy</h4>
+                    <h4 class="page-title"><i class="fe-book-open"></i>Kursy</h4>
                 </div>
                 <div class="col-6 d-flex justify-content-end align-items-center form-group-submit">
-                    <a href="{{route('admin.exam.create')}}" class="btn btn-primary">Dodaj egzamin</a>
+                    <a href="{{route('admin.exam.create')}}" class="btn btn-primary">Dodaj kurs</a>
                 </div>
             </div>
         </div>
 
         <div class="card-header border-bottom card-nav">
             <nav class="nav">
-                <a class="nav-link {{ Request::routeIs('admin.exam.index') ? 'active' : '' }}" href="{{route('admin.exam.index')}}"><span class="fe-list"></span> Lista egzaminów</a>
+                <a class="nav-link {{ Request::routeIs('admin.exam.index') ? 'active' : '' }}" href="{{route('admin.exam.index')}}"><span class="fe-list"></span> Lista kursów</a>
             </nav>
         </div>
 
@@ -36,6 +36,15 @@
                                         <div class="modal-form container">
                                             <div class="row">
                                                 <div class="col-12">
+                                                    <div class="form-group row">
+                                                        <label for="inputActive" class="col-5 col-form-label control-label required text-end">Możliwość zapisu</label>
+                                                        <div class="col-7">
+                                                            <select name="active" id="inputActive" class="form-control">
+                                                                <option value="1">Tak</option>
+                                                                <option value="0">Nie</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group row">
                                                         <label for="inputDateStart" class="col-5 col-form-label control-label required text-end">Data rozpoczęcia</label>
                                                         <div class="col-7">
@@ -86,7 +95,7 @@
                     <table class="table mb-0">
                         <thead class="thead-default">
                         <tr>
-                            <th>Nazwa egzaminu</th>
+                            <th>Nazwa</th>
                             <th class="text-center">Ilość pytań</th>
                             <th class="text-center">Próby</th>
                             <th class="text-center">Zaliczenie</th>
@@ -107,7 +116,7 @@
                                     @if($item->dates->count() > 0)
                                         <ul class="list-unstyled mb-0 w-250">
                                             @foreach($item->dates as $date)
-                                            <li>
+                                            <li class="table-date-status-{{$date->active}}">
                                                 <div class="row">
                                                     <div class="col-9">
                                                         <a href="{{route('admin.examdate.show', $date)}}">
@@ -135,11 +144,11 @@
                                     <div class="btn-group">
                                         <button type="button" class="btn action-button me-1" data-bs-toggle="modal" data-bs-tooltip="tooltip" data-bs-placement="top" data-exam="{{$item->id}}" data-bs-trigger="hover" data-bs-title="Dodaj termin" data-bs-target="#bootstrapmodal" ><i class="fe-calendar"></i></button>
                                         <a href="{{route('admin.exam.show', $item->id)}}" class="btn action-button me-1" data-bs-tooltip="tooltip" data-bs-placement="top" data-bs-title="Pokaż pytania"><i class="fe-folder"></i></a>
-                                        <a href="{{route('admin.exam.edit', $item->id)}}" class="btn action-button me-1" data-bs-tooltip="tooltip" data-bs-placement="top" data-bs-title="Edytuj egzamin"><i class="fe-edit"></i></a>
+                                        <a href="{{route('admin.exam.edit', $item->id)}}" class="btn action-button me-1" data-bs-tooltip="tooltip" data-bs-placement="top" data-bs-title="Edytuj kurs"><i class="fe-edit"></i></a>
                                         <form method="POST" action="{{route('admin.exam.destroy', $item->id)}}">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
-                                            <button type="submit" class="btn action-button confirm" data-bs-tooltip="tooltip" data-bs-placement="top" data-bs-title="Usuń egzamin" data-id="{{ $item->id }}"><i class="fe-trash-2"></i></button>
+                                            <button type="submit" class="btn action-button confirm" data-bs-tooltip="tooltip" data-bs-placement="top" data-bs-title="Usuń kurs" data-id="{{ $item->id }}"><i class="fe-trash-2"></i></button>
                                         </form>
                                     </div>
                                 </td>
@@ -155,7 +164,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 d-flex justify-content-end">
-                    <a href="{{route('admin.exam.create')}}" class="btn btn-primary">Dodaj egzamin</a>
+                    <a href="{{route('admin.exam.create')}}" class="btn btn-primary">Dodaj kurs</a>
                 </div>
             </div>
         </div>
@@ -171,6 +180,7 @@
                 start = $('#inputDateStart'),
                 exam_date = $('#inputDateExam'),
                 exam_id = $('#inputExamId'),
+                exam_active = $('#inputActive'),
                 end = $('#inputDateEnd');
             modal.addEventListener('shown.bs.modal', function (e) {
                 form.reset();
@@ -194,12 +204,9 @@
                     language: 'pl',
                     autoclose: true
                 });
-
-                console.log(examDate);
-
                 if(examDate){
                     const modalTitle = modal.querySelector('.modal-title');
-                    modalTitle.innerText = 'Edytuj termin'; // Update the title text
+                    modalTitle.innerText = 'Edytuj termin';
 
                     const xhr = new XMLHttpRequest();
                     xhr.open('GET', '/admin/examdate/show/'+ examDate);
@@ -217,10 +224,9 @@
                                 if (response.exam) {
                                     exam_date.datepicker('setDate', response.exam);
                                 }
-
+                                exam_active.val(response.active);
                                 exam_id.attr('id', 'inputExamDateId');
                                 exam_id.val(examDate);
-
                             } else {
                                 console.log(xhr.statusText);
                             }
@@ -249,7 +255,8 @@
                     'start': start.val(),
                     'end': end.val(),
                     'exam': exam_date.val(),
-                    'exam_id': exam_id.val()
+                    'exam_id': exam_id.val(),
+                    'active': exam_active.val(),
                 };
 
                 $.ajax({

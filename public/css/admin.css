@@ -3244,6 +3244,12 @@ body.lb-disable-scrolling {
   font-size: 22px;
   margin-right: 6px;
 }
+.table td.table-dates li.table-date-status-0 {
+  background: #fff7f7;
+}
+.table td.table-dates li.table-date-status-0 a {
+  color: #9d9d9d;
+}
 .collapsing {
   -webkit-transition: none;
   transition: none;
