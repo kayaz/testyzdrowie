@@ -12,7 +12,7 @@
                             <source srcset="{{ asset('/images/slider-1.jpg') }}" type="image/jpeg">
                             <img src="{{ asset('/images/slider-1.jpg') }}" loading="lazy" width="1380" height="776" class="w-100">
                         </picture>
-                        <div class="slider-apla">Zapraszamy na kursy Zdrowie publiczne oraz Prawo medyczne</div>
+                        <div class="slider-apla">Zapraszamy na kursy <br>Zdrowie publiczne oraz Prawo medyczne</div>
                     </li>
                 </ul>
             </div>
