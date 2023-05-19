@@ -55,8 +55,7 @@
                                             'name' => 'video',
                                             'value' => $entry->video,
                                             'rows' => 21,
-                                            'class' => 'tinymce',
-                                            'required' => 1
+                                            'class' => 'tinymce'
                                         ])
                                     </div>
                                 </div>

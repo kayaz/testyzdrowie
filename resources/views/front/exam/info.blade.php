@@ -55,9 +55,11 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="files-tab" data-bs-toggle="tab" data-bs-target="#files-tab-pane" type="button" role="tab" aria-controls="files-tab-pane" aria-selected="false">Pliki do pobrania</button>
                             </li>
+                            @if($exam->video)
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video-tab-pane" type="button" role="tab" aria-controls="video-tab-pane" aria-selected="false">Wideo</button>
                             </li>
+                            @endif
                         </ul>
                         <div class="tab-content" id="examTabContent">
                             <div class="tab-pane fade show active" id="desc-tab-pane" role="tabpanel" aria-labelledby="desc-tab" tabindex="0">
@@ -99,9 +101,11 @@
                                     </tbody>
                                 </table>
                             </div>
+                            @if($exam->video)
                             <div class="tab-pane fade" id="video-tab-pane" role="tabpanel" aria-labelledby="video-tab" tabindex="0">
                                 {!! $exam->video !!}
                             </div>
+                            @endif
                         </div>
 
                     </div>
