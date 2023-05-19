@@ -137,9 +137,6 @@ h4 i {color: var(--color-primary)}
   }
 }
 
-
-
-
 /* Headings
 ================================================== */
 .section-heading {
@@ -184,6 +181,28 @@ h4 i {color: var(--color-primary)}
   .section-heading {
     font-size: 22px;
     margin-top: 1px;
+  }
+}
+
+/* Slider
+================================================== */
+#slider {
+  ul {
+    li {
+      position: relative;
+      .slider-apla {
+        position: absolute;
+        left: 30px;
+        right: auto;
+        padding: 20px;
+        color: #fff;
+        background: rgb(48, 148, 218);
+        bottom: 30px;
+        font-size: 23px;
+        width: 410px;
+        border: 1px solid rgba(255,255,255,0.2);
+      }
+    }
   }
 }
 
@@ -544,6 +563,7 @@ form {
 /* Footer
 ================================================== */
 @import "less-partials/footer";
+
 
 /* Articles
 ================================================== */

@@ -200,6 +200,23 @@ h4 i {
   font-size: 22px;
   margin-top: 1px;
 }
+/* Slider
+================================================== */
+#slider ul li {
+  position: relative;
+}
+#slider ul li .slider-apla {
+  position: absolute;
+  left: 30px;
+  right: auto;
+  padding: 20px;
+  color: #fff;
+  background: #3094da;
+  bottom: 30px;
+  font-size: 23px;
+  width: 410px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 /* Header
 ================================================== */
 header #header {

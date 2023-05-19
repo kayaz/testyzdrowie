@@ -32,43 +32,19 @@
                                     <li>
                                         <label for="radio{{$q->id}}_1">
                                             <input class="qa" type="radio" name="pytanie{{$q->id}}" id="radio{{$q->id}}_1" value="1" disabled="disabled">
-                                            @if($q->correct == 1)
-                                                <span class="text-success">
-                                            @endif
                                                 {{ $q->answer_a }}
-                                            @if($q->correct == 1)
-                                                </span>
-                                            @endif
                                         </label>
                                         <label for="radio{{$q->id}}_2">
                                             <input class="qa" type="radio" name="pytanie{{$q->id}}" id="radio{{$q->id}}_2" value="2" disabled="disabled">
-                                            @if($q->correct == 2)
-                                                <span class="text-success">
-                                            @endif
                                             {{ $q->answer_b }}
-                                            @if($q->correct == 2)
-                                                </span>
-                                            @endif
                                         </label>
                                         <label for="radio{{$q->id}}_3">
                                             <input class="qa" type="radio" name="pytanie{{$q->id}}" id="radio{{$q->id}}_3" value="3" disabled="disabled">
-                                            @if($q->correct == 3)
-                                                <span class="text-success">
-                                            @endif
                                             {{ $q->answer_c }}
-                                            @if($q->correct == 3)
-                                                </span>
-                                            @endif
                                         </label>
                                         <label for="radio{{$q->id}}_4">
                                             <input class="qa" type="radio" name="pytanie{{$q->id}}" id="radio{{$q->id}}_4" value="4" disabled="disabled">
-                                            @if($q->correct == 4)
-                                                <span class="text-success">
-                                            @endif
                                             {{ $q->answer_d }}
-                                            @if($q->correct == 4)
-                                                </span>
-                                            @endif
                                         </label>
                                     </li>
                                 @endforeach
