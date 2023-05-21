@@ -29,7 +29,7 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::get('/o-nas', 'AboutController@index')->name('about');
 
-    Route::get('/moje-kursy', 'StudentController@index')->name('student.index')->middleware(['auth']);
+    Route::get('/moje-kursy', 'StudentController@index')->name('student.index')->middleware(['auth', 'student']);
 
     Route::get('/moje-kursy/{exam}-{date}', 'ExamController@info')->name('exam.info')->middleware(['exam.registration']);
 

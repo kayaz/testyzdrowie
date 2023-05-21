@@ -81,5 +81,6 @@ class Kernel extends HttpKernel
         'file_owner' => \App\Http\Middleware\CheckForFileOwner::class,
         'exam.date.registration' => \App\Http\Middleware\CheckExamDateRegistration::class,
         'exam.registration' => \App\Http\Middleware\CheckExamRegistration::class,
+        'student' => \App\Http\Middleware\CheckStudent::class,
     ];
 }
