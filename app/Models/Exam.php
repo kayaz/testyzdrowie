@@ -51,8 +51,13 @@ class Exam extends Model
      */
     public function availableDates()
     {
-        return $this->hasMany('App\Models\ExamDate')->where('start', '>', now()->format('Y-m-d'))->whereActive(1);
+        return $this->hasMany('App\Models\ExamDate')
+            ->whereDate('start', '<=', now()->format('Y-m-d'))
+            ->whereDate('end', '>=', now()->format('Y-m-d'))
+            ->whereActive(1);
     }
+
+
 
     public function examDateUsers()
     {

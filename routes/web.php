@@ -31,7 +31,7 @@ Route::group(['namespace' => 'Front'], function () {
 
     Route::get('/moje-kursy', 'StudentController@index')->name('student.index')->middleware(['auth']);
 
-    Route::get('/moje-kursy/{exam}-{date}', 'ExamController@info')->name('exam.info');
+    Route::get('/moje-kursy/{exam}-{date}', 'ExamController@info')->name('exam.info')->middleware(['exam.registration']);
 
     Route::get('/nowe-konto/podziekowanie', 'ThankYouController@index')->name('thankyou');
 

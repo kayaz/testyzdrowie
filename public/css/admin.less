@@ -2343,6 +2343,25 @@ body.lb-disable-scrolling {
     transition: none;
     display: none;
 }
+.form-switch {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    .form-check-input {
+        margin: 0 auto;
+        width: 40px;
+        height: 20px;
+        &:checked {
+            background-color: #00acc1;
+            border-color: #00acc1;
+        }
+        &:focus {
+            border: 1px solid rgba(0,0,0,.25);
+        }
+    }
+}
 
 
 .inbox-message-header .avatar-circle {

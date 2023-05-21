@@ -16,7 +16,8 @@ class ExamDateUser extends Model
     protected $fillable = [
         'exam_id',
         'exam_date_id',
-        'user_id'
+        'user_id',
+        'active'
     ];
 
     public function users()

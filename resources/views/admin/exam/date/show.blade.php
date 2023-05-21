@@ -34,6 +34,7 @@
                             <th class="text-center">Pesel</th>
                             <th class="text-center">E-mail</th>
                             <th class="text-center">Telefon</th>
+                            <th class="text-center">Uczestnik</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -47,6 +48,11 @@
                                     <td class="text-center">{!! checkPesel($item->users->first()->pesel) !!}</td>
                                     <td class="text-center">{{ $item->users->first()->email }}</td>
                                     <td class="text-center">{{ $item->users->first()->phone }}</td>
+                                    <td class="text-center">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input toggle-switch" type="checkbox" role="switch" id="toggleSwitch{{ $item->id }}" data-id="{{ $item->id }}" @if($item->active) checked @endif>
+                                        </div>
+                                    </td>
                                     <td class="option-120">
                                         <div class="btn-group">
                                             <form method="POST" action="{{route('admin.examdate.destroyRegister', ['examdate' => $examdate, 'examdateuser' => $item])}}">
@@ -74,6 +80,38 @@
                 return new bootstrap.Tooltip(tooltipTriggerEl)
             });
             @if (session('success')) toastr.options={closeButton:!0,progressBar:!0,positionClass:"toast-top-right",timeOut:"3000"};toastr.success("{{ session('success') }}"); @endif
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const toggleSwitches = document.querySelectorAll('.toggle-switch');
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                toggleSwitches.forEach(function(switchElement) {
+                    switchElement.addEventListener('change', function() {
+                        const dataId = parseInt(switchElement.dataset.id, 10);
+                        const isChecked = switchElement.checked ? 1 : 0;
+                        const xhr = new XMLHttpRequest();
+
+                        xhr.open('POST', '{{ route('admin.examdate.user') }}', true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                if (xhr.status === 200) {
+                                    // Handle the AJAX response
+                                    console.log(xhr.responseText);
+                                } else {
+                                    // Handle AJAX error
+                                    console.error('Request error:', xhr.status);
+                                }
+                            }
+                        };
+                        const data = JSON.stringify({dataId: dataId, isChecked: isChecked});
+                        xhr.send(data);
+                    });
+                });
+            });
         </script>
     @endpush
 @endsection

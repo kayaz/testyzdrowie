@@ -3255,6 +3255,25 @@ body.lb-disable-scrolling {
   transition: none;
   display: none;
 }
+.form-switch {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+.form-switch .form-check-input {
+  margin: 0 auto;
+  width: 40px;
+  height: 20px;
+}
+.form-switch .form-check-input:checked {
+  background-color: #00acc1;
+  border-color: #00acc1;
+}
+.form-switch .form-check-input:focus {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
 .inbox-message-header .avatar-circle {
   margin-right: 15px;
   margin-top: 1px;

@@ -86,6 +86,7 @@ class AppServiceProvider extends ServiceProvider
                     })
                     ->with('exam', 'examDate')
                     ->orderBy('id', 'asc')
+                    ->where('active', '=', 1)
                     ->get();
                 $view->with('examDateUsers', $examDateUsers);
             }

@@ -16,20 +16,14 @@
                     <ul class="list-group student-menu">
                         @foreach ($examDateUsers as $examDateUser)
                             <li class="list-group-item">
-                                @if(checkExam($examDateUser->examDate->start, $examDateUser->examDate->end))
-                                    <a href="{{ route('exam.info', [$examDateUser->exam, $examDateUser->examDate->id]) }}">
-                                        @endif
-                                        <div class="fw-bold">{{ $examDateUser->exam->name }}</div>
-                                        <p><i class="las la-calendar-day"></i>  {{$examDateUser->examDate->start }} <i class="las la-long-arrow-alt-right me-2 ms-2"></i> {{$examDateUser->examDate->end }}</p>
-                                        @if(checkExam($examDateUser->examDate->start, $examDateUser->examDate->end))
-                                            <span class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">SZCZEGÓŁY</span>
-                                            @if(checkExam($examDateUser->examDate->exam, $examDateUser->examDate->end))
-                                                <a href="{{ route('exam.index', [$examDateUser->exam, $examDateUser->examDate]) }}" class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">ROZPOCZNIJ TEST</a>
-                                            @endif
-                                        @endif
-                                        @if(checkExam($examDateUser->examDate->start, $examDateUser->examDate->end))
-                                    </a>
-                                @endif
+                                <a href="{{ route('exam.info', [$examDateUser->exam, $examDateUser->examDate->id]) }}">
+                                    <div class="fw-bold">{{ $examDateUser->exam->name }}</div>
+                                    <p><i class="las la-calendar-day"></i>  {{$examDateUser->examDate->start }} <i class="las la-long-arrow-alt-right me-2 ms-2"></i> {{$examDateUser->examDate->end }}</p>
+                                    <span class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">SZCZEGÓŁY</span>
+                                    @if(checkExam($examDateUser->examDate->exam, $examDateUser->examDate->end))
+                                        <a href="{{ route('exam.index', [$examDateUser->exam, $examDateUser->examDate]) }}" class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">ROZPOCZNIJ TEST</a>
+                                    @endif
+                                </a>
                             </li>
                         @endforeach
                     </ul>
@@ -52,10 +46,12 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc-tab-pane" type="button" role="tab" aria-controls="desc-tab-pane" aria-selected="true">Regulamin testu</button>
                             </li>
+                            @if(checkExam($date->start, $date->end))
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="files-tab" data-bs-toggle="tab" data-bs-target="#files-tab-pane" type="button" role="tab" aria-controls="files-tab-pane" aria-selected="false">Pliki do pobrania</button>
                             </li>
-                            @if($exam->video)
+                            @endif
+                            @if($exam->video && checkExam($date->start, $date->end))
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video-tab-pane" type="button" role="tab" aria-controls="video-tab-pane" aria-selected="false">Wideo</button>
                             </li>
@@ -65,6 +61,7 @@
                             <div class="tab-pane fade show active" id="desc-tab-pane" role="tabpanel" aria-labelledby="desc-tab" tabindex="0">
                                 {!! $exam->statute !!}
                             </div>
+                            @if(checkExam($date->start, $date->end))
                             <div class="tab-pane fade" id="files-tab-pane" role="tabpanel" aria-labelledby="files-tab" tabindex="0">
                                 <table class="table table-hover">
                                     <thead>
@@ -101,7 +98,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            @if($exam->video)
+                            @endif
+                            @if($exam->video && checkExam($date->start, $date->end))
                             <div class="tab-pane fade" id="video-tab-pane" role="tabpanel" aria-labelledby="video-tab" tabindex="0">
                                 {!! $exam->video !!}
                             </div>

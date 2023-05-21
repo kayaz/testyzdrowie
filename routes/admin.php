@@ -40,6 +40,7 @@ Route::group([
         return response()->json($examDate);
     });
 
+    Route::post('/user-activate', 'Exam\UserController@update')->name('examdate.user');
 
     // Settings
     Route::group(['prefix'=>'/settings', 'as' => 'settings.'], function () {

@@ -12,11 +12,12 @@
     <div class="page-text">
         <div class="container">
             <div class="row">
+                @if($examDateUsers->count() > 0)
                 <div class="col-3">
                     <ul class="list-group student-menu">
                         @foreach ($examDateUsers as $examDateUser)
                         <li class="list-group-item">
-                            @if(checkExam($examDateUser->examDate->start, $examDateUser->examDate->end))
+                        @if(checkExam($examDateUser->examDate->start, $examDateUser->examDate->end))
                             <a href="{{ route('exam.info', [$examDateUser->exam, $examDateUser->examDate->id]) }}">
                             @endif
                                 <div class="fw-bold">{{ $examDateUser->exam->name }}</div>
@@ -34,7 +35,8 @@
                         @endforeach
                     </ul>
                 </div>
-                <div class="col-9">
+                @endif
+                <div class="@if($examDateUsers->count() > 0) col-9 @else col-12 @endif">
                     <div class="ps-5">
                         {!! $page->content !!}
                     </div>

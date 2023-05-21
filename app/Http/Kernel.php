@@ -80,5 +80,6 @@ class Kernel extends HttpKernel
         'restrictIp' => \App\Http\Middleware\IpMiddleware::class,
         'file_owner' => \App\Http\Middleware\CheckForFileOwner::class,
         'exam.date.registration' => \App\Http\Middleware\CheckExamDateRegistration::class,
+        'exam.registration' => \App\Http\Middleware\CheckExamRegistration::class,
     ];
 }
