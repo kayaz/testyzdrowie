@@ -21,7 +21,7 @@
                                     <p><i class="las la-calendar-day"></i>  {{$examDateUser->examDate->start }} <i class="las la-long-arrow-alt-right me-2 ms-2"></i> {{$examDateUser->examDate->end }}</p>
                                     <span class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">SZCZEGÓŁY</span>
                                     @if(checkExam($examDateUser->examDate->exam, $examDateUser->examDate->end))
-                                        <a href="{{ route('exam.index', [$examDateUser->exam, $examDateUser->examDate]) }}" class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">ROZPOCZNIJ TEST</a>
+                                        <a href="{{ route('exam.index', [$examDateUser->exam, $examDateUser->examDate]) }}" class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">ZALICZENIE TESTOWE</a>
                                     @endif
                                 </a>
                             </li>
@@ -37,14 +37,14 @@
                         @if(checkExam($date->exam, $date->end))
                         <div class="row mt-5 mb-4">
                             <div class="col-12 text-center">
-                                <a href="{{ route('exam.index', [$exam, $date]) }}" class="btn btn-theme btn-theme-red btn-big">ROZPOCZNIJ TEST</a>
+                                <a href="{{ route('exam.index', [$exam, $date]) }}" class="btn btn-theme btn-theme-red btn-big">ZALICZENIE TESTOWE</a>
                             </div>
                         </div>
                         @endif
 
                         <ul class="nav nav-tabs mt-5" id="examTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc-tab-pane" type="button" role="tab" aria-controls="desc-tab-pane" aria-selected="true">Regulamin testu</button>
+                                <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc-tab-pane" type="button" role="tab" aria-controls="desc-tab-pane" aria-selected="true">Regulamin kursu</button>
                             </li>
                             @if(checkExam($date->start, $date->end))
                             <li class="nav-item" role="presentation">
@@ -91,7 +91,11 @@
                                                 {{ parseFilesize($f->size) }}
                                             </td>
                                             <td>
-                                                <a href="{{ asset('uploads/storage/'.$f->file) }}" class="btn btn-sm btn-theme" target="_blank">Pobierz</a>
+                                                @if($f->extension == 'pdf')
+                                                <button class="btn btn-sm btn-theme btn-pdf-modal" data-bs-toggle="modal" data-bs-target="#pdfModal" data-url="{{ asset('uploads/storage/'.$f->file) }}">Czytaj</button>
+                                                @else
+                                                    <a href="{{ asset('uploads/storage/'.$f->file) }}" class="btn btn-sm btn-theme" target="_blank">Pobierz</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -105,6 +109,22 @@
                             </div>
                             @endif
                         </div>
+                        <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="pdfModalLabel">Podgląd pliku</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <object id="pdfObject" data="" type="application/pdf" width="100%" height="600px">
+                                            <iframe id="pdfIframe" src="" style="width:100%;height:100%;border:0"></iframe>
+                                            <p>Przepraszamy, Twoja przeglądarka nie obsługuje plików PDF. <a href="{{ asset('uploads/storage/'.$f->file) }}">Pobierz plik</a>.</p>
+                                        </object>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -112,3 +132,22 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        const pdfModal = document.getElementById('pdfModal');
+        const pdfObject = pdfModal.querySelector('#pdfObject');
+        const pdfIframe = pdfModal.querySelector('#pdfIframe');
+
+        pdfModal.addEventListener('shown.bs.modal', function (e) {
+            const url = $(e.relatedTarget).data('url');
+            pdfObject.setAttribute('data', url);
+            pdfIframe.setAttribute('src', url);
+        })
+
+        pdfModal.addEventListener('hidden.bs.modal', function(e) {
+            pdfIframe.removeAttribute('src');
+            pdfObject.removeAttribute('data');
+        });
+    </script>
+@endpush

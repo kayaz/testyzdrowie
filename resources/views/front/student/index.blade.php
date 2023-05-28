@@ -25,7 +25,7 @@
                                 @if(checkExam($examDateUser->examDate->start, $examDateUser->examDate->end))
                                     <span class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">SZCZEGÓŁY</span>
                                     @if(checkExam($examDateUser->examDate->exam, $examDateUser->examDate->end))
-                                        <a href="{{ route('exam.index', [$examDateUser->exam, $examDateUser->examDate]) }}" class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">ROZPOCZNIJ TEST</a>
+                                        <a href="{{ route('exam.index', [$examDateUser->exam, $examDateUser->examDate]) }}" class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">ZALICZENIE TESTOWE</a>
                                     @endif
                                 @endif
                             @if(checkExam($examDateUser->examDate->start, $examDateUser->examDate->end))

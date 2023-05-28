@@ -23,12 +23,12 @@
 
                         <div class="alert alert-danger mt-5 text-center" role="alert">PRZECZYTAJ UWAŻNIE</div>
 
-                        <p>Po wciśnięciu przycisku "Rozpocznij test" przejdziesz do strony z testem. Jednocześniej zostanie uruchomiony zegar odliczający czas do końca egzaminu. <b>Odświeżenie strony będzie traktowane jako kolejne podejście do testu!</b></p>
+                        <p>Po wciśnięciu przycisku "Zaliczenie testowe" przejdziesz do strony z testem. Jednocześniej zostanie uruchomiony zegar odliczający czas do końca egzaminu. <b>Odświeżenie strony będzie traktowane jako kolejne podejście do testu!</b></p>
                         @if($attempt->count() >= $exam->attempts)
                             <p class="mt-5 text-center"><b class="text-danger">Wykorzystałeś już limit podejść do egzaminu.</b></p>
                         @else
                         <div class="text-center mt-5">
-                            <a href="{{ route('exam.show', [$exam, $date]) }}" class="btn btn-theme btn-big">Rozpocznij test</a>
+                            <a href="{{ route('exam.show', [$exam, $date]) }}" class="btn btn-theme btn-big">Zaliczenie testowe</a>
                         </div>
                         @endif
                     @else
