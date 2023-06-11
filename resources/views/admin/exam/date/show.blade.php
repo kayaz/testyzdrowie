@@ -45,7 +45,7 @@
                                     <td>{{ $item->users->first()->surname }}</td>
                                     <td class="text-center">{{ $item->users->first()->specialization }}</td>
                                     <td class="text-center">{!! checkPwz($item->users->first()->practice) !!}</td>
-                                    <td class="text-center">{!! checkPesel((int)$item->users->first()->pesel) !!}</td>
+                                    <td class="text-center"></td>
                                     <td class="text-center">{{ $item->users->first()->email }}</td>
                                     <td class="text-center">{{ $item->users->first()->phone }}</td>
                                     <td class="text-center">
