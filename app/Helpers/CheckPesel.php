@@ -4,7 +4,11 @@ if (! function_exists('checkPesel')) {
     function checkPesel($number)
     {
         if (!is_numeric($number)) {
-            return '<i class="fe-alert-circle me-1 text-danger"></i> Zły numer';
+            return '<i class="fe-alert-circle me-1 text-danger"></i> Not a valid number';
+        }
+
+        if (strlen($number) !== 11) {
+            return '<i class="fe-alert-circle me-1 text-danger"></i> Invalid PESEL number';
         }
 
         // Rest of the code
