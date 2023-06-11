@@ -3,6 +3,11 @@
 if (! function_exists('checkPesel')) {
     function checkPesel($number)
     {
+        if (!is_numeric($number)) {
+            return '<i class="fe-alert-circle me-1 text-danger"></i> Zły numer';
+        }
+
+        // Rest of the code
         $weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3, 1];
         $digits = str_split($number);
 
