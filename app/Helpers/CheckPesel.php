@@ -1,7 +1,7 @@
 <?php
 
 if (! function_exists('checkPesel')) {
-    function checkPesel(int $number)
+    function checkPesel($number)
     {
         $weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3, 1];
         $digits = str_split($number);
