@@ -41,8 +41,8 @@
                         <tbody class="content">
                             @foreach($examdateusers as $item)
                                 <tr>
-                                    <td>{{ $item->users->first()->name }}</td>
-                                    <td>{{ $item->users->first()->surname }}</td>
+                                    <td>@if($item->users->first()->name) {{ $item->users->first()->name }} @endif</td>
+                                    <td>@if($item->users->first()->surname) {{ $item->users->first()->surname }} @endif</td>
                                     <td class="text-center">{{ $item->users->first()->specialization }}</td>
                                     <td class="text-center">{!! checkPwz($item->users->first()->practice) !!}</td>
                                     <td class="text-center">{!! checkPesel($item->users->first()->pesel) !!}</td>
