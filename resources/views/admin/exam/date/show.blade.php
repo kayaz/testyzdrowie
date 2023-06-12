@@ -43,11 +43,11 @@
                                 <tr>
                                     <td>@if($item->users->first()) {{ $item->users->first()->name }} @endif</td>
                                     <td>@if($item->users->first()) {{ $item->users->first()->surname }} @endif</td>
-                                    <td class="text-center">{{ $item->users->first()->specialization }}</td>
-                                    <td class="text-center">{!! checkPwz($item->users->first()->practice) !!}</td>
-                                    <td class="text-center">{!! checkPesel($item->users->first()->pesel) !!}</td>
-                                    <td class="text-center">{{ $item->users->first()->email }}</td>
-                                    <td class="text-center">{{ $item->users->first()->phone }}</td>
+                                    <td class="text-center">@if($item->users->first()) {{ $item->users->first()->specialization }} @endif</td>
+                                    <td class="text-center">@if($item->users->first()) {!! checkPwz($item->users->first()->practice) !!} @endif</td>
+                                    <td class="text-center">@if($item->users->first()) {!! checkPesel($item->users->first()->pesel) !!} @endif</td>
+                                    <td class="text-center">@if($item->users->first()) {{ $item->users->first()->email }} @endif</td>
+                                    <td class="text-center">@if($item->users->first()) {{ $item->users->first()->phone }} @endif</td>
                                     <td class="text-center">
                                         <div class="form-check form-switch">
                                             <input class="form-check-input toggle-switch" type="checkbox" role="switch" id="toggleSwitch{{ $item->id }}" data-id="{{ $item->id }}" @if($item->active) checked @endif>
