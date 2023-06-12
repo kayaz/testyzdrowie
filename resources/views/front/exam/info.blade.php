@@ -63,6 +63,7 @@
                             </div>
                             @if(checkExam($date->start, $date->end))
                             <div class="tab-pane fade" id="files-tab-pane" role="tabpanel" aria-labelledby="files-tab" tabindex="0">
+                                @if($files->count() > 0)
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
@@ -101,6 +102,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                @endif
                             </div>
                             @endif
                             @if($exam->video && checkExam($date->start, $date->end))
