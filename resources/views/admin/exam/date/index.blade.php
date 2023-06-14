@@ -53,7 +53,7 @@
                                 <td class="text-center">@if($item->time) {{ convertSec2Min($item->time) }}@endif</td>
                                 <td class="option-120">
                                     <div class="btn-group">
-                                        <form method="POST" action="">
+                                        <form method="POST" action="{{route('admin.examdate.destroyApproach', ['examdate' => $examdate, 'approach' => $item])}}">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <button type="submit" class="btn action-button confirm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Usuń zapis" data-id="{{ $item->id }}"><i class="fe-trash-2"></i></button>

@@ -71,6 +71,12 @@ class DateController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function destroyApproach(ExamDate $examdate, ExamAttempt $approach)
+    {
+        $approach->delete();
+        return response()->json(['success' => true]);
+    }
+
     public function destroy(ExamDate $examdate)
     {
         $examdate->delete();
