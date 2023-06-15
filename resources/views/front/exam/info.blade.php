@@ -121,7 +121,6 @@
                                     <div class="modal-body">
                                         <object id="pdfObject" data="" type="application/pdf" width="100%" height="600px">
                                             <iframe id="pdfIframe" src="" style="width:100%;height:100%;border:0"></iframe>
-                                            <p>Przepraszamy, Twoja przeglądarka nie obsługuje plików PDF. <a href="{{ asset('uploads/storage/'.$f->file) }}">Pobierz plik</a>.</p>
                                         </object>
                                     </div>
                                 </div>
