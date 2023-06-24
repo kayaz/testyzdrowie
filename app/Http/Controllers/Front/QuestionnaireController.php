@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
+use App\Models\ExamAttempt;
 use App\Models\ExamDate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -37,6 +38,12 @@ class QuestionnaireController extends Controller
             'dodatkowe' => $request->get('dodatkowe'),
             'created_at' => Carbon::now()
         ]);
+
+        ExamAttempt::where('exam_id', '=', $exam->id)
+        ->where('date_id', '=', $date->id)
+        ->where('user_id', '=', Auth::user()->id)
+        ->update(['questionnaire' => 1]);
+
         return redirect()->back()->with(
             'success',
             'Dziękujemy za wypełnienie formularza'

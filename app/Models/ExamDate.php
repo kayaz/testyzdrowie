@@ -34,6 +34,11 @@ class ExamDate extends Model
         return $this->belongsTo(Exam::class);
     }
 
+    public function attempts()
+    {
+        return $this->hasMany(ExamAttempt::class, 'date_id');
+    }
+
 //    protected $with = [
 //        'exam:id,name',
 //    ];
