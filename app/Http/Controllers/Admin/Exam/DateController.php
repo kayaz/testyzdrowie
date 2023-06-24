@@ -54,7 +54,7 @@ class DateController extends Controller
     {
         $exam = $examdate->exam()->first();
         $filename = "export_" . date("Y-m-d_H-i", time());
-        return Excel::download(new ExamAttemptExport($examdate->id), Str::slug($exam->name).'_wyniki_egzaminu_'.$filename.'.xlsx');
+        return Excel::download(new ExamAttemptExport($examdate->id, $exam->pass), Str::slug($exam->name).'_wyniki_egzaminu_'.$filename.'.xlsx');
     }
 
 

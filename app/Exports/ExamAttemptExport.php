@@ -17,9 +17,10 @@ class ExamAttemptExport implements FromCollection, ShouldAutoSize, WithHeadings,
     use Exportable;
     protected $totalRows = 0;
 
-    public function __construct(int $examdateId)
+    public function __construct(int $examdateId, int $examPass)
     {
         $this->examdateId = $examdateId;
+        $this->examPass = $examPass;
     }
 
     public function collection()
@@ -37,6 +38,7 @@ class ExamAttemptExport implements FromCollection, ShouldAutoSize, WithHeadings,
             'ip',
             'host',
         )->where('date_id', '=', $this->examdateId)
+            ->where('score', '>=', $this->examPass)
             ->with('user')
             ->get();
 

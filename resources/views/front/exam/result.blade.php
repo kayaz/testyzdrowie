@@ -45,6 +45,12 @@
                             <a href="{{ route('exam.index', [$exam, $date]) }}" class="btn btn-theme btn-theme-red btn-big mt-3 w-100">SPRÓBUJ JESZCZE RAZ</a>
                         @endif
                     @endif
+
+                    @if($questionnaire == 0)
+                        <hr class="mt-4 mb-3">
+                        <p>Uprzejmie prosimy o wypełnienie naszej ankiety, która mogłaby wpłynąć na podniesienie poziomu jakości kursów, w którym Państwo uczestniczyli. <a href="{{ route('ankieta.index', [$exam, $date]) }}">Ankieta</a></p>
+                    @endif
+
                 </div>
             </div>
         </div>

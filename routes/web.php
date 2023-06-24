@@ -48,6 +48,9 @@ Route::group(['namespace' => 'Front'], function () {
         Route::post('/egzamin/{exam}-{date}', 'ExamController@store')->name('exam.store');
 
         Route::get('/egzamin/wynik/{exam}-{date}-{attempt}', 'ExamController@result')->name('exam.result');
+
+        Route::get('/egzamin/ankieta/{exam}-{date}', 'QuestionnaireController@index')->name('ankieta.index');
+        Route::post('/egzamin/ankieta/{exam}-{date}', 'QuestionnaireController@store')->name('ankieta.store');
     });
 
 

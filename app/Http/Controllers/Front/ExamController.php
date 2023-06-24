@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Questionnaire;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -107,6 +108,8 @@ class ExamController extends Controller
 
         $attempts = ExamAttempt::whereUserId($this->user_id)->whereExamId($exam->id)->whereDateId($date->id)->count();
 
-        return view('front.exam.result', ['exam' => $exam, 'attempts' => $attempts, 'attempt' => $attempt, 'date' => $date]);
+        $checkforquestionnaire = Questionnaire::whereUserId($this->user_id)->whereExamId($exam->id)->whereExamDateId($date->id)->count();
+
+        return view('front.exam.result', ['exam' => $exam, 'attempts' => $attempts, 'attempt' => $attempt, 'date' => $date, 'questionnaire' => $checkforquestionnaire]);
     }
 }

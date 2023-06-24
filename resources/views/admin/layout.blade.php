@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/admin.min.css') }}">
-
     @stack('style')
 
 </head>
@@ -92,6 +91,12 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span> Kalendarz</a>
+                        </li>
+                        <li {{ Request::routeIs('admin.questionnaire.*') ? 'class=active' : '' }}>
+                            <a href="{{ route('admin.questionnaire.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span> Ankiety</a>
                         </li>
                     </ul>
                 </li>

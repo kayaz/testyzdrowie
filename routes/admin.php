@@ -24,6 +24,7 @@ Route::group([
         'file' => 'File\IndexController',
         'exam' => 'Exam\IndexController',
         'examdate' => 'Exam\DateController',
+        'questionnaire' => 'Questionnaire\IndexController',
         'exam/{exam}/question' => 'Exam\QuestionController',
     ]);
 

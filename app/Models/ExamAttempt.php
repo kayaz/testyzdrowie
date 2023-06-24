@@ -23,7 +23,8 @@ class ExamAttempt extends Model
         'answers_correct',
         'answers_empty',
         'time',
-        'score'
+        'score',
+        'questionnaire'
     ];
 
     /**
