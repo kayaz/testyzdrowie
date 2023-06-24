@@ -4,7 +4,6 @@
     <li class="list-group-item">Kurs: <b>{{ $questionnaire->exam->name }}</b></li>
     <li class="list-group-item">Data kursu: <b>{{ $questionnaire->examDate->start }}</b></li>
     <li class="list-group-item">Jak ocenia Pani/Pan organizację kursu w trybie e-learningu: <b>{{ $questionnaire->organisation }}</b></li>
-    <li class="list-group-item">Jak ocenia Pani/Pan organizację kursu w trybie e-learningu: <b>{{ $questionnaire->organisation }}</b></li>
     <li class="list-group-item">Jak ocenia Pani/Pan jasność i zrozumiałość komunikatów: <b>{{ $questionnaire->intelligibility }}</b></li>
     <li class="list-group-item">Jak ocenia Pani/Pan łatwość zarejestrowania się na kurs (w serwisie): <b>{{ $questionnaire->registration }}</b></li>
     <li class="list-group-item">Jak ocenia Pani/Pan jakość materiałów dydaktycznych (pisanych): <b>{{ $questionnaire->tmaterials }}</b></li>
