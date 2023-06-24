@@ -29,7 +29,7 @@
                                     @endif
                                 @endif
 
-                                @if(!$examDateUser->examDate->attempts()->where('questionnaire', 1)->exists())
+                                @if($examDateUser->examDate->questionnaires->count() > 0 && $examDateUser->examDate->questionnaires->where('questionnaire', '=', 1)->count() == 0)
                                     <a href="{{ route('ankieta.index', [$examDateUser->exam, $examDateUser->examDate]) }}" class="btn btn-theme btn-theme-red btn-sm mt-3 w-100">WYPEŁNIJ ANKIETE</a>
                                 @endif
                             @if(checkExam($examDateUser->examDate->start, $examDateUser->examDate->end))

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class ExamDate extends Model
@@ -34,9 +35,10 @@ class ExamDate extends Model
         return $this->belongsTo(Exam::class);
     }
 
-    public function attempts()
+    public function questionnaires()
     {
-        return $this->hasMany(ExamAttempt::class, 'date_id');
+        return $this->hasMany(ExamAttempt::class, 'date_id')
+            ->where('user_id', '=', Auth::user()->id);
     }
 
 //    protected $with = [
