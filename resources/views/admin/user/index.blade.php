@@ -29,7 +29,7 @@
                             <script>setTimeout(function(){$(".alert").slideUp(500,function(){$(this).remove()})},3000)</script>
                         </div>
                     @endif
-                    <table class="table mb-0" id="sortable">
+                    <table class="table data-table w-100">
                         <thead class="thead-default">
                         <tr>
                             <th>#</th>
@@ -46,40 +46,7 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody class="content">
-                        @foreach ($list as $index => $p)
-                            <tr>
-                                <th class="position" scope="row">{{ $index+1 }}</th>
-                                <td>{{ $p->name }}</td>
-                                <td>{{ $p->surname }}</td>
-                                <td>{{ $p->email }}</td>
-                                <td>{{ $p->phone }}</td>
-                                <td>
-                                    @if(!empty($p->getRoleNames()))
-                                        @foreach($p->getRoleNames() as $v)
-                                            <label class="badge badge-role">{{ $v }}</label>
-                                        @endforeach
-                                    @endif
-                                </td>
-                                <td>{{ $p->pesel }}</td>
-                                <td>{{ $p->practice }}</td>
-                                <td class="text-center">{!! status($p->active) !!}</td>
-                                <td>{{ $p->created_at }}</td>
-                                <td>{{ $p->updated_at }}</td>
-                                <td class="option-120">
-                                    <div class="btn-group">
-                                        <a href="{{route('admin.user.show', $p)}}" class="btn action-button me-1" data-toggle="tooltip" data-placement="top" title="Pokaż"><i class="fe-user"></i></a>
-                                        <a href="{{route('admin.user.edit', $p)}}" class="btn action-button me-1" data-toggle="tooltip" data-placement="top" title="Edytuj"><i class="fe-edit"></i></a>
-                                        <form method="POST" action="{{route('admin.user.destroy', $p)}}">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            <button type="submit" class="btn action-button confirm" data-toggle="tooltip" data-placement="top" title="Usuń" data-id="{{ $p->id }}"><i class="fe-trash-2"></i></button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
+                        <tbody class="content"></tbody>
                     </table>
                 </div>
             </div>
@@ -94,4 +61,84 @@
             </div>
         </div>
     </div>
+    @routes('users')
+    @push('scripts')
+        <script src="{{ asset('/js/datatables.min.js') }}" charset="utf-8"></script>
+        <script src="{{ asset('/js/bootstrap-select/bootstrap-select.min.js') }}" charset="utf-8"></script>
+
+        <link href="{{ asset('/css/datatables.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('/js/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet">
+        <script>
+            $(function () {
+                $.fn.dataTable.ext.errMode = 'none';
+                $('.data-table').on( 'error.dt', function ( e, settings, techNote, message ) {
+                    console.log( 'An error has been reported by DataTables: ', message );
+                });
+            });
+            $(document).ready(function() {
+                const t = $('.data-table').DataTable({
+                    processing:!0,serverSide:!1,responsive:!0,dom:'Brtip',"buttons":[{extend:'excelHtml5',header:!0,exportOptions:{modifier:{order:'index',page:'all',search:'applied'}}},{extend:'csv',header:!0,exportOptions:{modifier:{order:'index',page:'all',search:'applied'}}},'colvis',],language:{"url":"{{ asset('/js/polish.json') }}"},iDisplayLength:11,
+                    ajax: {
+                        url: "{{ route('admin.user.datatable') }}",
+                        type: "GET",
+                        data: function(d) {
+                            d.minDate = $('#form_date_from').val();
+                            d.maxDate = $('#form_date_to').val();
+                        }
+                    },
+
+                    columns: [
+                        /* 0 */ { data: null, defaultContent: '' },
+                        /* 1 */ { data: 'name', name: 'name' },
+                        /* 2 */ { data: 'surname', name: 'surname' },
+                        /* 3 */ { data: 'email', name: 'email' },
+                        /* 4 */ { data: 'phone', name: 'phone' },
+                        /* 5 */ { data: 'role', name: 'role' },
+                        /* 6 */ { data: 'pesel', name: 'pesel' },
+                        /* 7 */ { data: 'practice', name: 'practice' },
+                        /* 8 */ { data: 'status', name: 'status' },
+                        /* 9 */ { data: 'created_at', name: 'created_at' },
+                        /* 10 */ { data: 'updated_at', name: 'updated_at' },
+                        /* 11 */ {data: 'actions', name: 'actions'}
+                    ],
+                    bSort: false,
+                    columnDefs: [
+                        { className: 'text-center', targets: [5,8] },
+                        { className: 'option-120 text-end', targets: [11] }
+                    ],
+                    initComplete: function () {
+                        this.api().columns('.select-column').every(function() {
+                            const column = this;
+                            const select = $('<select class="selectpicker"><option value="">' + this.header().textContent + '</option></select>').appendTo($(column.header()).empty()).on('change', function() {
+                                const val = $.fn.dataTable.util.escapeRegex($(this).val());
+                                column.search(val ? '^' + val + '$' : '', !0, !1).draw()
+                            });
+                            column.data().unique().sort().each(function(value) {
+
+                                if(value) {
+                                    if (value.indexOf("span") >= 0) {
+                                        const tempElement = document.createElement('div');
+                                        tempElement.innerHTML = value;
+                                        const spanElement = tempElement.querySelector('span[data-filter]');
+                                        value = spanElement ? spanElement.getAttribute('data-filter') : null;
+                                    }
+                                    select.append('<option value="' + value + '">' + value + '</option>')
+                                }
+
+                            });
+
+                            $('.selectpicker').selectpicker();
+                        });
+
+                        $('<button class="dt-button buttons-refresh">Odśwież tabelę</button>').appendTo('div.dt-buttons');$(".buttons-refresh").click(function(){t.ajax.reload()});
+
+
+                    },
+                    "drawCallback":function(){$(".confirmForm").click(function(d){d.preventDefault();const c=$(this).closest("form");const a=c.attr("action");const b=$("meta[name='csrf-token']").attr("content");$.confirm({title:"Potwierdzenie usunięcia",message:"Czy na pewno chcesz usunąć?",buttons:{Tak:{"class":"btn btn-primary",action:function(){$.ajax({url:a,type:"DELETE",data:{_token:b,}}).done(function(){t.row(c.parents('tr')).remove().draw()})}},Nie:{"class":"btn btn-secondary",action:function(){}}}})})},
+                });
+
+                t.on('init.dt', function () { const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]')); tooltipTriggerList.map(function (tooltipTriggerEl) { return new bootstrap.Tooltip(tooltipTriggerEl) }); }); t.on('order.dt search.dt', function () { const count = t.page.info().recordsDisplay; t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) { cell.innerHTML = count - i }); }).draw();
+            });
+        </script>
+    @endpush
 @endsection

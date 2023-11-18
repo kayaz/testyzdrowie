@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,6 +16,7 @@ use App\Models\User;
 
 //Importing laravel-permission models
 use Spatie\Permission\Models\Role;
+use Yajra\DataTables\DataTables;
 
 class IndexController extends Controller
 {
@@ -109,6 +112,57 @@ class IndexController extends Controller
 
         //$user->update($request->except(['_token', 'submit']));
         return redirect(route('admin.user.index'))->with('success', 'Użytkownik zaktualizowany');
+    }
+
+    public function datatable(Request $request){
+        $query = User::orderByDesc('id');
+
+        if ($request->filled('minDate')) {
+            $minDate = Carbon::parse($request->input('minDate'))->startOfDay();
+            $query->where('created_at', '>=', $minDate);
+        }
+
+        if ($request->filled('maxDate')) {
+            $maxDate = Carbon::parse($request->input('maxDate'))->endOfDay();
+            $query->where('created_at', '<=', $maxDate);
+        }
+
+        $list = $query->get();
+
+        return Datatables::of($list)
+            ->addColumn('role', function ($row) {
+                $roles = '';
+                if (!empty($row->getRoleNames())) {
+                    foreach ($row->getRoleNames() as $role) {
+                        $roles .= '<label class="badge badge-role">' . $role . '</label>';
+                    }
+                }
+                return $roles;
+            })
+            ->editColumn('status', function ($row){
+                return status($row->active);
+            })
+            ->editColumn('created_at', function ($row){
+                $date = Carbon::parse($row->created_at)->format('Y-m-d');
+                $diffForHumans = Carbon::createFromFormat('Y-m-d', $date)->diffForHumans();
+                return '<span>'.$date.'</span><div class="form-text mt-0">'.$diffForHumans.'</div>';
+            })
+            ->editColumn('updated_at', function ($row){
+                $date = Carbon::parse($row->created_at)->format('Y-m-d');
+                $diffForHumans = Carbon::createFromFormat('Y-m-d', $date)->diffForHumans();
+                return '<span>'.$date.'</span><div class="form-text mt-0">'.$diffForHumans.'</div>';
+            })
+            ->addColumn('actions', function ($row) {
+                return view('admin.user.tableActions', ['row' => $row]);
+            })
+            ->rawColumns([
+                'role',
+                'status',
+                'created_at',
+                'updated_at',
+                'actions'
+            ])
+            ->make();
     }
 
     public function destroy($id)

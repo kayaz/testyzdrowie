@@ -15,6 +15,8 @@ Route::group([
         return redirect('admin/settings/seo');
     });
 
+    Route::get('user/datatable', 'User\IndexController@datatable')->name('user.datatable');
+
     Route::resources([
         'user' => 'User\IndexController',
         'role' => 'Role\IndexController',
