@@ -4,7 +4,7 @@ if (! function_exists('checkPwz')) {
     function checkPwz($number)
     {
         if (!is_numeric($number)) {
-            return '<i class="fe-alert-circle me-1 text-danger"></i> To nie jest numer<br>'.$number;
+            return '<i class="fe-alert-circle me-1 text-danger"></i> To nie jest numer:<br>'.$number;
         }
 
         $numbers = str_split($number);
