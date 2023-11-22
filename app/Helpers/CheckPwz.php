@@ -1,8 +1,12 @@
 <?php
 
 if (! function_exists('checkPwz')) {
-    function checkPwz(int $number)
+    function checkPwz($number)
     {
+        if (!is_numeric($number)) {
+            return '<i class="fe-alert-circle me-1 text-danger"></i> To nie jest numer';
+        }
+
         $numbers = str_split($number);
         $check = array();
         $check[] = $numbers[0] * 10;
