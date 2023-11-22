@@ -44,7 +44,7 @@
                                     <td>@if($item->users->first()) {{ $item->users->first()->name }} @endif</td>
                                     <td>@if($item->users->first()) {{ $item->users->first()->surname }} @endif</td>
                                     <td class="text-center">@if($item->users->first()) {{ $item->users->first()->specialization }} @endif</td>
-                                    <td class="text-center">@if($item->users->first()) {!! checkPwz($item->users->first()->practice) !!} @endif</td>
+                                    <td class="text-center">@if($item->users->first() && $item->users->first()->practice) {!! checkPwz($item->users->first()->practice) !!} @endif</td>
                                     <td class="text-center">@if($item->users->first()) {!! checkPesel($item->users->first()->pesel) !!} @endif</td>
                                     <td class="text-center">@if($item->users->first()) {{ $item->users->first()->email }} @endif</td>
                                     <td class="text-center">@if($item->users->first()) {{ $item->users->first()->phone }} @endif</td>
