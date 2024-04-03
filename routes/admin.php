@@ -37,6 +37,7 @@ Route::group([
 
     Route::delete('examdate/{examdate}/entry/{examdateuser}', 'Exam\DateController@destroyRegister')->name('examdate.destroyRegister');
     Route::delete('examdate/{examdate}/approach/{approach}', 'Exam\DateController@destroyApproach')->name('examdate.destroyApproach');
+    Route::get('examdate/clear/{examdate}', 'Exam\DateController@clear')->name('examdate.clear');
     Route::get('examdate/results/{examdate}', 'Exam\DateController@index')->name('examdate.index');
     Route::get('examdate/export/{examdate}', 'Exam\DateController@export')->name('examdate.export');
     Route::get('examdate/show/{id}', function ($id) {

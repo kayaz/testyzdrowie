@@ -8,7 +8,7 @@
                     <h4 class="page-title"><i class="fe-book-open"></i>{{ $exam->name }} - Termin: {{ $examdate->start }} <i class="las la-long-arrow-alt-right me-2 ms-2"></i> {{ $examdate->end }}</h4>
                 </div>
                 <div class="col-6 d-flex justify-content-end align-items-center form-group-submit">
-
+                    <a href="{{route('admin.examdate.clear', $examdate)}}" class="btn btn-primary">Wyczyść kurs</a>
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@ use App\Models\ExamAttempt;
 use App\Models\ExamDate;
 use App\Models\ExamDateUser;
 use App\Repositories\ExamDateRepository;
+use Barryvdh\Debugbar\Twig\Extension\Debug;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -48,6 +49,11 @@ class DateController extends Controller
         $examdateUsers = ExamDateUser::where('exam_date_id', '=', $examdate->id)->with('users')->get();
 
         return view('admin.exam.date.show', [ 'exam' => $exam, 'examdate' => $examdate, 'examdateusers' => $examdateUsers]);
+    }
+    public function clear(ExamDate $examdate)
+    {
+        ExamDateUser::where('exam_date_id', $examdate->id)->delete();
+        return redirect(route('admin.examdate.show', $examdate))->with('success', 'Kurs wyczyszczony');
     }
 
     public function export(ExamDate $examdate)
