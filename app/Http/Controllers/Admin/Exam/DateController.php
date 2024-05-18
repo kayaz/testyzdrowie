@@ -46,7 +46,7 @@ class DateController extends Controller
     public function show(ExamDate $examdate)
     {
         $exam = Exam::find($examdate->exam_id);
-        $examdateUsers = ExamDateUser::where('exam_date_id', '=', $examdate->id)->with('users')->get();
+        $examdateUsers = ExamDateUser::where('exam_date_id', '=', $examdate->id)->with('users')->orderBy('id', 'DESC')->get();
 
         return view('admin.exam.date.show', [ 'exam' => $exam, 'examdate' => $examdate, 'examdateusers' => $examdateUsers]);
     }
