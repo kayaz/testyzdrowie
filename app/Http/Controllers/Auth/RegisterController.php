@@ -8,6 +8,7 @@ use App\Notifications\AdminEmailNotification;
 use App\Notifications\UserEmailNotification;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Rules\ReCaptchaV3;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -82,6 +83,7 @@ class RegisterController extends Controller
             'form_phone' => ['required', 'string', 'max:190'],
             'form_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'form_password' => ['required', 'string', 'min:8', 'confirmed'],
+            'g-recaptcha-response' => ['required', new ReCaptchaV3()]
         ]);
     }
 

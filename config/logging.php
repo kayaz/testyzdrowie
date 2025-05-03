@@ -84,7 +84,11 @@ return [
                 'port' => env('PAPERTRAIL_PORT'),
             ],
         ],
-
+        'recaptcha' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/recaptcha.log'),
+            'level' => 'info',
+        ],
         'stderr' => [
             'driver' => 'monolog',
             'level' => env('LOG_LEVEL', 'debug'),
